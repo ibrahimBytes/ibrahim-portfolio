@@ -1,12 +1,15 @@
 <p align="center">
   <img src="/public/favicon.svg" width="50" alt="Logo" />
 </p>
-<h1 align="center">Personal portfolio</h1>
 
-[![Site preview](/public/site-preview.png)](https://hamishw.com)
+<h1 align="center">Ibrahim — Personal Portfolio</h1>
 
-My design portfolio to showcase a few projects. Built with [Remix](https://remix.run/), [Three.js](https://threejs.org/), and [Framer Motion](https://www.framer.com/motion/). View the [live site](https://hamishw.com) or check out a live version of the [components storybook](https://storybook.hamishw.com).
+[![Site preview](/public/site-preview.png)](https://YOUR-DOMAIN-HERE)
 
+A custom-built, high-performance developer portfolio created to showcase my personal projects, skills, and engineering capabilities.  
+Built using **Next.js**, **React**, **Framer Motion**, and optional **Three.js** for visual effects.
+
+👉 **Live site:** https://YOUR-DOMAIN-HERE
 ## Install & run
 
 Make sure you have nodejs `19.9.0` or higher and npm `9.6.3` or higher installed. Install dependencies with:
@@ -29,18 +32,31 @@ npm run dev:storybook
 
 ## Deployment
 
-I've set up the site using Cloudflare for hosting. Deploy the site to Cloudflare Pages:
+I've set up the site using Cloudflare zfor hosting. Deploy the site to Cloudflare Pages:
 
 ```bash
 npm run deploy
 ```
 
-## Permissions
+## Permissions / License (Closed-Source)
 
-I'm cool with anyone using the code or parts of the code for their own site, it is open source so people can learn from it and adapt it. However, I would encourage you to modify the theme and components it to make it your own. If you are using the site's design largely unmodified, I'd appreciate being credited as the designer of the website.
+This project is NOT open source.
 
-I do not give permission to present any of my projects as your own (this is being actively used as my portfolio site and these are my real projects I've worked on).
+❌ You may NOT copy this project
 
+❌ You may NOT reuse any significant part of the code
+
+❌ You may NOT redistribute, modify, or adapt the design
+
+❌ You may NOT claim any project inside this portfolio as your own
+
+❌ You may NOT clone, replicate, or fork this portfolio
+
+All code, design, images, animations, and components are private intellectual property of Ibrahim.
+
+If you want to build your own portfolio, you must create your own original design.
+
+You are allowed to view the code only for recruitment and verification purposes.
 ## FAQs
 
 <details>
