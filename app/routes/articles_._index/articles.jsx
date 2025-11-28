@@ -1,3 +1,4 @@
+// app/routes/articles/articles.jsx
 import { Button } from '~/components/button';
 import { DecoderText } from '~/components/decoder-text';
 import { Divider } from '~/components/divider';
@@ -14,47 +15,55 @@ import { formatDate } from '~/utils/date';
 import { classes, cssProps } from '~/utils/style';
 import styles from './articles.module.css';
 
+/**
+ * Personalized Articles list for Ibrahim Shaik
+ * - Tone: concise, professional, architect-focused
+ * - Labels and microcopy tuned for tutorials / case studies / engineering notes
+ */
+
 function ArticlesPost({ slug, frontmatter, timecode, index }) {
   const [hovered, setHovered] = useState(false);
   const [dateTime, setDateTime] = useState(null);
   const reduceMotion = useReducedMotion();
-  const { title, abstract, date, featured, banner } = frontmatter;
+  const { title, abstract, date, featured, banner } = frontmatter || {};
 
   useEffect(() => {
-    setDateTime(formatDate(date));
-  }, [date, dateTime]);
+    if (date) {
+      setDateTime(formatDate(date));
+    } else {
+      setDateTime('Unknown date');
+    }
+  }, [date]);
 
-  const handleMouseEnter = () => {
-    setHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setHovered(false);
-  };
+  const handleMouseEnter = () => setHovered(true);
+  const handleMouseLeave = () => setHovered(false);
 
   return (
     <article
       className={styles.post}
       data-featured={!!featured}
+      aria-labelledby={`post-${slug}-title`}
       style={index !== undefined ? cssProps({ delay: index * 100 + 200 }) : undefined}
     >
       {featured && (
-        <Text className={styles.postLabel} size="s">
+        <Text className={styles.postLabel} size="s" aria-hidden>
           Featured
         </Text>
       )}
+
       {featured && !!banner && (
         <div className={styles.postImage}>
           <Image
             noPauseButton
             play={!reduceMotion ? hovered : undefined}
             src={banner}
-            placeholder={`${banner.split('.')[0]}-placeholder.jpg`}
+            placeholder={banner ? `${banner.split('.')[0]}-placeholder.jpg` : undefined}
             alt=""
             role="presentation"
           />
         </div>
       )}
+
       <RouterLink
         unstable_viewTransition
         prefetch="intent"
@@ -68,25 +77,32 @@ function ArticlesPost({ slug, frontmatter, timecode, index }) {
             <Divider notchWidth="64px" notchHeight="8px" />
             {dateTime}
           </div>
-          <Heading as="h2" level={featured ? 2 : 4}>
+
+          <Heading id={`post-${slug}-title`} as="h2" level={featured ? 2 : 4}>
             {title}
           </Heading>
+
           <Text size={featured ? 'l' : 's'} as="p">
             {abstract}
           </Text>
+
           <div className={styles.postFooter}>
             <Button secondary iconHoverShift icon="chevron-right" as="div">
-              Read article
+              Read post
             </Button>
-            <Text className={styles.timecode} size="s">
-              {timecode}
+
+            <Text className={styles.timecode} size="s" aria-hidden>
+              {timecode ?? '—'}
             </Text>
           </div>
         </div>
       </RouterLink>
+
       {featured && (
+        // small badge on the side — change number to reflect reading time or views if you prefer
         <Text aria-hidden className={styles.postTag} size="s">
-          477
+          {/* Personalized: show quick stat placeholder */}
+          {frontmatter?.readingMinutes ? `${frontmatter.readingMinutes}m` : 'Top'}
         </Text>
       )}
     </article>
@@ -134,38 +150,50 @@ function SkeletonPost({ index }) {
 }
 
 export function Articles() {
-  const { posts, featured } = useLoaderData();
+  const { posts = [], featured = null } = useLoaderData();
   const { width } = useWindowSize();
   const singleColumnWidth = 1190;
   const isSingleColumn = width <= singleColumnWidth;
 
+  // Personalized header
   const postsHeader = (
     <header className={styles.header}>
       <Heading className={styles.heading} level={5} as="h1">
-        <DecoderText text="Latest articles" />
+        <DecoderText text="Ibrahim — Notes & Tutorials" />
       </Heading>
       <Barcode className={styles.barcode} />
     </header>
   );
 
+  // Main post list
   const postList = (
     <div className={styles.list}>
       {!isSingleColumn && postsHeader}
       {posts.map(({ slug, ...post }, index) => (
         <ArticlesPost key={slug} slug={slug} index={index} {...post} />
       ))}
+      {/* show two skeleton placeholders at the end */}
       {Array(2)
         .fill()
-        .map((skeleton, index) => (
-          <SkeletonPost key={index} index={index} />
+        .map((_, index) => (
+          <SkeletonPost key={`skeleton-${index}`} index={index} />
         ))}
     </div>
   );
 
-  const featuredPost = <ArticlesPost {...featured} />;
+  // Featured post (if any) — we pass in the shape expected by ArticlesPost
+  const featuredPost = featured ? (
+    <ArticlesPost
+      key={featured.slug || 'featured'}
+      slug={featured.slug}
+      frontmatter={featured.frontmatter}
+      timecode={featured.timecode}
+      index={-1}
+    />
+  ) : null;
 
   return (
-    <article className={styles.articles}>
+    <article className={styles.articles} aria-labelledby="articles-heading">
       <Section className={styles.content}>
         {!isSingleColumn && (
           <div className={styles.grid}>
@@ -173,6 +201,7 @@ export function Articles() {
             {featuredPost}
           </div>
         )}
+
         {isSingleColumn && (
           <div className={styles.grid}>
             {postsHeader}
@@ -181,11 +210,13 @@ export function Articles() {
           </div>
         )}
       </Section>
+
       <Footer />
     </article>
   );
 }
 
+/* Small personalized barcode — kept minimal, you can replace with IS monogram if you want */
 function Barcode({ className }) {
   return (
     <svg
@@ -194,6 +225,7 @@ function Barcode({ className }) {
       height="20"
       fill="currentColor"
       viewBox="0 0 153 20"
+      aria-hidden="true"
     >
       <path
         fillOpacity=".6"
@@ -201,4 +233,4 @@ function Barcode({ className }) {
       />
     </svg>
   );
-}
+} 

@@ -1,0 +1,284 @@
+/* app/routes/projects.orbion/orbion.module.css
+   Updated: Unified tokens, preview frame, section spacing, headings
+*/
+
+/*---------------------------------------------
+   DESIGN TOKENS
+---------------------------------------------- */
+:root {
+  --color-bg: #0b0f16;
+  --color-surface: #111722;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-text-primary: #e5ecf5;
+  --color-text-secondary: rgba(229, 236, 245, 0.65);
+  --color-accent: #7c3aed;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.25);
+  --shadow-md: 0 6px 20px rgba(0,0,0,0.35);
+
+  --font-body: "Inter", "SF Pro Text", "Roboto", sans-serif;
+  --font-heading: "Inter", "SF Pro Text", "Roboto", sans-serif;
+  --font-mono: "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --ease-standard: cubic-bezier(.2,.9,.2,1);
+  --duration-sm: 200ms;
+}
+
+/* ---------------------------------------------
+   BASE LAYOUT
+---------------------------------------------- */
+
+.orbion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-3);
+  color: var(--color-text-primary);
+  background: transparent;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* two-column grid used in certain sections (kept for future use) */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-5);
+}
+
+/* ---------------------------------------------
+   SECTION / TYPOGRAPHY
+---------------------------------------------- */
+
+.ProjectSection {
+  padding: 0;
+}
+
+/* heading provided by layout, but we add consistent spacing */
+h1, h2, h3, .heading {
+  margin: 0 0 var(--space-2) 0;
+  font-family: var(--font-heading);
+  color: var(--color-text-primary);
+}
+
+.ProjectSectionHeading,
+.project-heading {
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* body / paragraph styling */
+.ProjectSectionText,
+.project-text,
+.textBlock {
+  color: var(--color-text-primary);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+/* muted / secondary text */
+.small,
+.muted {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+/* simple content columns used in previous layout */
+.leftColumn,
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ---------------------------------------------
+   GENERIC EMBED CONTAINERS
+---------------------------------------------- */
+
+.codeEmbed,
+.uiPreview {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-top: var(--space-3);
+}
+
+/* ---------------------------------------------
+   TEXT FILE EMBEDS
+---------------------------------------------- */
+
+.codeFrame {
+  width: 100%;
+  height: 340px;
+  border: none;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.45;
+  padding: var(--space-2);
+  overflow: auto;
+}
+
+/* ---------------------------------------------
+   PREVIEW IFRAME (used by Tier2)
+---------------------------------------------- */
+
+.previewWrapper,
+.uiFrameWrapper {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform var(--duration-sm) var(--ease-standard), box-shadow var(--duration-sm) var(--ease-standard);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+}
+
+/* frame used in iframe embeds */
+.previewFrame,
+.uiFrame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 320px;
+  border: none;
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: block;
+}
+
+/* smaller preview variant for mobile */
+@media (max-width: 900px) {
+  .previewFrame,
+  .uiFrame {
+    aspect-ratio: 4 / 3;
+    min-height: 260px;
+    border-radius: 12px;
+  }
+}
+
+/* ---------------------------------------------
+   FULLSCREEN BEHAVIOR
+---------------------------------------------- */
+
+:fullscreen .previewWrapper,
+:fullscreen .uiFrameWrapper {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+:fullscreen .previewFrame,
+:fullscreen .uiFrame {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+/* background during fullscreen to avoid white gap */
+:fullscreen {
+  background: black;
+}
+
+/* ---------------------------------------------
+   FULLSCREEN BUTTON
+---------------------------------------------- */
+
+.fullscreenBtn {
+  align-self: flex-end;
+  padding: 8px 12px;
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--duration-sm) var(--ease-standard), border-color var(--duration-sm) var(--ease-standard);
+}
+
+.fullscreenBtn:hover {
+  color: var(--color-text-primary);
+  border-color: rgba(255,255,255,0.22);
+}
+
+/* ---------------------------------------------
+   LISTS, KVP, SMALL UI HELPERS
+---------------------------------------------- */
+
+ul {
+  margin: var(--space-2) 0;
+  padding-left: 18px;
+  color: var(--color-text-primary);
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+/* subtle divider used between major sections if needed */
+.sectionDivider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04));
+  margin: var(--space-3) 0;
+  border-radius: 2px;
+}
+
+/* helper for code/monospace labels */
+.kv {
+  font-family: var(--font-mono);
+  background: rgba(255,255,255,0.02);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--color-text-primary);
+}
+
+/* ---------------------------------------------
+   RESPONSIVE RULES
+---------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+
+  .orbion {
+    padding: var(--space-3) var(--space-2);
+  }
+}
+
+@media (max-width: 900px) {
+  .codeFrame {
+    height: 260px;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    gap: var(--space-2);
+  }
+}

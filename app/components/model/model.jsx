@@ -527,4 +527,4 @@ const Device = ({
   }, [loadDevice, show]);
 };
 
-export default Model;
+export default Model; 

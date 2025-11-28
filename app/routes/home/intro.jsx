@@ -1,16 +1,17 @@
-import { DecoderText } from '~/components/decoder-text';
-import { Heading } from '~/components/heading';
-import { Section } from '~/components/section';
-import { useTheme } from '~/components/theme-provider';
-import { tokens } from '~/components/theme-provider/theme';
-import { Transition } from '~/components/transition';
-import { VisuallyHidden } from '~/components/visually-hidden';
+//app/routes/home/intro.jsx
+import { DecoderText } from '../../components/decoder-text';
+import { Heading } from '../../components/heading';
+import { Section } from '../../components/section';
+import { useTheme } from '../../components/theme-provider';
+import { tokens } from '../../components/theme-provider/theme';
+import { Transition } from '../../components/transition';
+import { VisuallyHidden } from '../../components/visually-hidden';
 import { Link as RouterLink } from '@remix-run/react';
-import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
+import { useInterval, usePrevious, useScrollToHash } from '../../hooks';
 import { Suspense, lazy, useEffect, useState } from 'react';
-import { cssProps } from '~/utils/style';
-import config from '~/config.json';
-import { useHydrated } from '~/hooks/useHydrated';
+import { cssProps } from '../../utils/style';
+import config from '../../config.json';
+import { useHydrated } from '../../hooks/useHydrated';
 import styles from './intro.module.css';
 
 const DisplacementSphere = lazy(() =>

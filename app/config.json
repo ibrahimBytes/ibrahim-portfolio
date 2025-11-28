@@ -1,11 +1,18 @@
 {
-  "name": "Hamish Williams",
-  "role": "Designer",
-  "disciplines": ["Developer", "Prototyper", "Animator", "Illustrator", "Modder"],
-  "url": "https://hamishw.com",
-  "bluesky": "hamishw.com",
-  "figma": "@Hamish",
-  "github": "HamishMW",
-  "repo": "https://github.com/HamishMW/portfolio",
-  "ascii": "__  __  __\n\u005C \u005C \u005C \u005C \u005C\u2215\n \u005C \u005C\u2215\u005C \u005C\n  \u005C\u2215  \u005C\u2215\n"
+  "name": "Ibrahim Shaik",
+  "role": "Software Architect",
+  "disciplines": [
+    "UI/UX Dev",
+    "Full-Stack",
+    "Systems Engineer",
+    "DevOps & Cloud",
+    "AI/ML Engineer"
+  ],
+  "url": "https://github.com/ibrahimBytes",
+  "email": "s.ibrahim.devx@gmail.com",
+  "linkedin": "www.linkedin.com/in/ibrahim-shaik-1baa8a341",
+  "github": "ibrahimBytes",
+  "repo": "https://github.com/ibrahimBytes/portfolio",
+  "quote": "I build systems that scale — clean architecture, clean logic, zero nonsense.",
+  "ascii": "__   ___      _     _            \n\\ \\ / (_)    | |   (_)           \n \\ V / _  ___| |__  _ _ __ ___   \n  > < | |/ __| '_ \\| | '_ ` _ \\  \n / . \\| | (__| | | | | | | | | | \n/_/\\_\\_|\\___|_| |_|_|_| |_| |_|"
 }

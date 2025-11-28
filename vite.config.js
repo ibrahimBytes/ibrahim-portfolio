@@ -1,3 +1,4 @@
+// vite.config.js
 import {
   vitePlugin as remix,
   cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
@@ -19,6 +20,12 @@ export default defineConfig({
   server: {
     port: 7777,
   },
+//   resolve: {
+//   alias: {
+//     'lucide-react': 'lucide-react/dist/esm/index.js',
+//   },
+// },
+
   plugins: [
     mdx({
       rehypePlugins: [[rehypeImgSize, { dir: 'public' }], rehypeSlug, rehypePrism],
