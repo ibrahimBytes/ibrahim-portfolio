@@ -4,12 +4,13 @@
 
 <h1 align="center">Ibrahim — Personal Portfolio</h1>
 
-[![Site preview](/public/site-preview.png)](https://YOUR-DOMAIN-HERE)
+[![Site preview](/public/site-preview.png)](https://ibrahim-portfolio.pages.dev/)
 
 A custom-built, high-performance developer portfolio created to showcase my personal projects, skills, and engineering capabilities.  
 Built using **Next.js**, **React**, **Framer Motion**, and optional **Three.js** for visual effects.
 
-👉 **Live site:** https://YOUR-DOMAIN-HERE
+👉 **Live site:** https://ibrahim-portfolio.pages.dev/
+
 ## Install & run
 
 Make sure you have nodejs `19.9.0` or higher and npm `9.6.3` or higher installed. Install dependencies with:
@@ -62,7 +63,7 @@ You are allowed to view the code only for recruitment and verification purposes.
 <details>
   <summary>How do I change the color on the <code>DisplacementSphere</code> (blobby rotating thing in the background).</summary>
   
-  You'll need to edit the fragment shader. [Check out this issue for more details](https://github.com/HamishMW/portfolio/issues/19#issuecomment-870996615).
+  You'll need to edit the fragment shader. [Check out this issue for more details](https://github.com/ibrahimBytes/portfolio/issues/19#issuecomment-870996615).
 </details>
 
 <details>

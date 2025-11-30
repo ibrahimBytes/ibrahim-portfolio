@@ -5,7 +5,9 @@ addons.setConfig({
   theme: {
     ...themes.dark,
     brandImage: './icon.svg',
-    brandTitle: 'Hamish Williams Components',
-    brandUrl: 'https://hamishw.com',
+    brandTitle: 'Ibrahim Shaik Components',
+    brandUrl: 'brandUrl: https://ibrahim-portfolio.pages.dev/',
   },
+  
 }); 
+

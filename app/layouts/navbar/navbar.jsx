@@ -221,3 +221,8 @@ const NavbarIcons = ({ desktop }) => (
     ))}
   </div>
 );
+
+/*
+A fully custom portfolio built with Remix, MDX, 3D rendering, motion systems, and clean UI architecture. Designed as a personal lab for exploring design, engineering, and modern web performance.
+
+Resources*/

@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
-
 // Assets
 import smartCityLarge from '../../assets/smartcity-large.jpg';
 import smartCityPlaceholder from '../../assets/smartcity-placeholder.jpg';
@@ -7,6 +5,8 @@ import smartCity from '../../assets/smartcity.jpg';
 import cppEngineLarge from '../../assets/cpp-engine-large.jpg';
 import cppEnginePlaceholder from '../../assets/cpp-engine-placeholder.jpg';
 import cppEngine from '../../assets/cpp-engine.jpg';
+
+import { useEffect, useRef, useState } from 'react';
 
 // Config & Utils
 import config from '../../config.json';
@@ -27,14 +27,9 @@ export const links = () => [
   { rel: 'prefetch', href: '/draco/draco_decoder.wasm', as: 'fetch', type: 'application/wasm', importance: 'low' },
 ];
 
-// Meta
-export const meta = () =>
-  baseMeta({
-    title: 'Software Architect',
-    description: `Portfolio of ${config.name} — designing interfaces like Steve Jobs, architecting systems like Linus Torvalds.`,
-  });
 
-// Home Page
+// ------------------------------------------------------
+
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
@@ -81,7 +76,7 @@ export const Home = () => {
         visible={visibleSections.includes(projectOne.current)}
         title="Orbion — Smart City OS"
         description="A unified smart city operating system integrating transport, weather, commerce, events, and geodata. Built with React, Go, PostgreSQL, and an event-driven architecture."
-        buttonText="View case study"
+        buttonText="View case"
         buttonLink="/projects/orbion"
         model={{
           type: 'laptop',
@@ -98,20 +93,20 @@ export const Home = () => {
         visible={visibleSections.includes(projectTwo.current)}
         title="Real-Time System Monitor"
         description="A C++ hardware-level engine that streams CPU/RAM/GPU metrics to a mobile dashboard in milliseconds using WebSockets and native memory access."
-        buttonText="View system monitor"
+        buttonText="View case"
         buttonLink="/projects/system-monitor"
         model={{
           type: 'phone',
           alt: 'System Monitor Mobile Dashboard',
-          textures: [{ srcSet: `${cppEngine} 375w, ${cppEngineLarge} 750w`, placeholder: cppEnginePlaceholder },
+          textures: [
+            { srcSet: `${cppEngine} 375w, ${cppEngineLarge} 750w`, placeholder: cppEnginePlaceholder },
             { srcSet: `${cppEngineLarge} 375w, ${cppEngineLarge} 750w`, placeholder: cppEnginePlaceholder }
           ],
-        }
-      }
+        }}
       />
 
       <Profile id="details" sectionRef={details} visible={visibleSections.includes(details.current)} />
       <Footer />
     </div>
   );
-};
+}; 
