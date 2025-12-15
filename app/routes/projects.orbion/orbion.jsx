@@ -25,11 +25,11 @@ import styles from './orbion.module.css';
    Page Meta
 ---------------------------------------------- */
 
-const title = 'Orbion — Unified Smart City OS (WIP)';
+const title = 'Orbion — Smart City Platform (Exploratory)';
 const description =
-  'Orbion unifies travel, transport, utilities, weather, events, and essential city services into a single seamless platform.';
+  'Orbion is an exploratory smart city platform focused on UX architecture, system design, and scalable software thinking.';
 
-const roles = ['Product Thinking', 'System Design', 'End-to-End UX'];
+const roles = ['Product Thinking', 'System Design', 'UX Architecture'];
 
 export const meta = () => baseMeta({ title, description, prefix: 'Projects' });
 
@@ -45,7 +45,7 @@ const useFullscreen = () => {
     if (!el) return;
 
     if (!document.fullscreenElement) {
-      el.requestFullscreen().catch(err => console.error(err));
+      el.requestFullscreen().catch(() => {});
     } else {
       document.exitFullscreen();
     }
@@ -74,31 +74,38 @@ const FullscreenButton = ({ onClick }) => (
 );
 
 /* ---------------------------------------------
-   Tier 1 — WHY
+   Tier 1 — WHY (Vision, not promises)
 ---------------------------------------------- */
 
 const Tier1_Why = () => (
   <Fragment>
-    <TierHeader heading="The Problem">
-      Cities run on fragmented digital ecosystems — separate apps for tickets, transit, events, weather, maps, and civic services.
-      This fragmentation increases cognitive load, breaks continuity, and slows down everyday tasks.
+    <TierHeader heading="The problem">
+      Modern cities expose users to fragmented digital systems —
+      separate apps for transport, events, weather, payments, and civic services.
+      This fragmentation increases cognitive load and breaks continuity
+      in everyday tasks.
     </TierHeader>
 
-    <TierHeader heading="Vision">
-      Orbion imagines the city as a single predictable environment: one place to discover, decide, and act.
-      The mission is simple — <strong>reduce friction and unify the essential layers of city life</strong>.
+    <TierHeader heading="The idea">
+      Orbion explores the idea of treating a city as a single, predictable interface —
+      a place to discover information, make decisions, and take action
+      without constantly switching contexts.
+      <br /><br />
+      The goal is not to replace existing systems,
+      but to rethink how they are experienced together.
     </TierHeader>
 
-    <TierHeader heading="Why it matters">
-      A unified system makes cities feel more humane.  
-      For governments and businesses, it enables precision, visibility, and operational clarity.  
-      For citizens, it removes complexity and creates a smoother daily experience.
+    <TierHeader heading="Why this matters">
+      For citizens, unification reduces friction and mental overhead.  
+      For operators and governments, it improves visibility and coordination.  
+      For engineers, it presents a distributed systems problem
+      expressed through user experience.
     </TierHeader>
   </Fragment>
 );
 
 /* ---------------------------------------------
-   Tier 2 — EXPERIENCE
+   Tier 2 — EXPERIENCE (Prototype, not product)
 ---------------------------------------------- */
 
 const Tier2_Experience = () => {
@@ -106,38 +113,40 @@ const Tier2_Experience = () => {
 
   return (
     <Fragment>
-      <TierHeader heading="The Experience">
-        Orbion is deliberately calm and predictable.  
-        It uses modern UX principles — hierarchy, minimal choices, and progressive disclosure — to lower cognitive effort.
+      <TierHeader heading="Experience focus">
+        The experience is intentionally calm and predictable.
+        Clear hierarchy, limited choices, and progressive disclosure
+        are used to reduce cognitive effort in real-world conditions.
       </TierHeader>
 
-      <TierHeader heading="A unified dashboard">
-        The home screen works as a city console: live traffic, transit, events, quick actions, alerts, and contextual information.
-        The interface adapts to location and time so that the most relevant actions appear first.
+      <TierHeader heading="Unified dashboard concept">
+        The dashboard acts as a conceptual city console —
+        surfacing relevant transit, alerts, events, and actions
+        based on context such as location and time.
       </TierHeader>
 
-      <TierHeader heading="How it feels">
-        Orbion behaves like a refined operating system: consistent components, subtle motion, and clear affordances.
-        It borrows lessons from Notion, Stripe, Apple, and Google Maps — clarity first, aesthetics second.
+      <TierHeader heading="Prototype intent">
+        This interface is not a finished product.
+        It is an interaction prototype designed to explore
+        layout rhythm, component consistency, and information hierarchy.
       </TierHeader>
 
       <ProjectSection>
         <ProjectSectionContent>
-          <ProjectSectionHeading>Preview</ProjectSectionHeading>
+          <ProjectSectionHeading>UI prototype</ProjectSectionHeading>
           <ProjectSectionText>
-            This is an early interaction prototype showing the foundational layout rhythm,
-            spatial rules, and interaction patterns.  
-            It is a living artifact — evolving through research, testing, and real usage data.
+            The preview below demonstrates early interaction patterns
+            and structural decisions.
+            Visual polish and live production data
+            are intentionally out of scope at this stage.
           </ProjectSectionText>
 
-          {/* Fullscreen Button */}
           <FullscreenButton onClick={toggle} />
 
-          {/* UI Preview Frame */}
           <div ref={previewRef} className={styles.previewWrapper}>
             <iframe
               src="/orbion-ui/index.html"
-              title="Orbion UI Preview"
+              title="Orbion UI Prototype"
               className={styles.previewFrame}
               sandbox="allow-scripts allow-same-origin allow-pointer-lock"
             />
@@ -149,14 +158,70 @@ const Tier2_Experience = () => {
 };
 
 /* ---------------------------------------------
-   Tier 3 — ARCHITECTURE
+   Tier 3 — Security & Trust
 ---------------------------------------------- */
 
-const Tier3_Architecture = () => (
+const Tier3_Security = () => (
   <Fragment>
-    <TierHeader heading="Architecture (high level)">
-      Orbion views a city as a distributed system — composed of domain services communicating through events and APIs.
-      Each domain evolves independently while preserving a unified user experience.
+    <TierHeader heading="Security considerations">
+      Security in Orbion is approached as a design concern,
+      not a bolt-on feature.
+      The focus at this stage is on defining trust boundaries,
+      minimizing blast radius, and enforcing clear responsibility
+      between domains.
+    </TierHeader>
+
+    <ProjectSection>
+      <ProjectSectionContent>
+        <ProjectSectionHeading>Threat-aware design</ProjectSectionHeading>
+        <ProjectSectionText>
+          The system assumes partial failure and untrusted inputs by default.
+          Core assumptions include:
+          <ul>
+            <li>Clients are never trusted.</li>
+            <li>Each domain validates and owns its data.</li>
+            <li>Failures are isolated to prevent cascading impact.</li>
+          </ul>
+        </ProjectSectionText>
+      </ProjectSectionContent>
+    </ProjectSection>
+
+    <ProjectSection>
+      <ProjectSectionContent>
+        <ProjectSectionHeading>Planned security controls</ProjectSectionHeading>
+        <ProjectSectionText>
+          While not fully implemented, the architecture accounts for:
+          <ul>
+            <li><strong>Authentication:</strong> centralized identity with short-lived tokens.</li>
+            <li><strong>Authorization:</strong> role- and scope-based access per domain.</li>
+            <li><strong>API boundaries:</strong> strict contracts and input validation.</li>
+            <li><strong>Data protection:</strong> encryption in transit and at rest.</li>
+            <li><strong>Rate limiting:</strong> abuse prevention at gateway level.</li>
+          </ul>
+        </ProjectSectionText>
+      </ProjectSectionContent>
+    </ProjectSection>
+
+    <TierHeader heading="Security trade-offs">
+      Strong isolation and validation increase operational complexity,
+      but they significantly reduce systemic risk —
+      a necessary trade-off for city-scale software.
+    </TierHeader>
+  </Fragment>
+);
+
+
+/* ---------------------------------------------
+   Tier 4 — ARCHITECTURE (Explicitly conceptual)
+---------------------------------------------- */
+
+const Tier4_Architecture = () => (
+  <Fragment>
+    <TierHeader heading="Architecture perspective">
+      Orbion approaches a city as a distributed system composed of
+      independent domains communicating through well-defined interfaces.
+      This section reflects architectural thinking,
+      not a production deployment.
     </TierHeader>
 
     <ProjectSection>
@@ -164,10 +229,10 @@ const Tier3_Architecture = () => (
         <ProjectSectionHeading>Core principles</ProjectSectionHeading>
         <ProjectSectionText>
           <ul>
-            <li><strong>Modularity:</strong> transport, events, payments, identity — each is a separate bounded context.</li>
-            <li><strong>Resilience:</strong> failures are isolated through graceful degradation.</li>
-            <li><strong>Real-time first:</strong> event streams power live UI and analytics.</li>
-            <li><strong>Operational clarity:</strong> observability and strict interface contracts drive maintainability.</li>
+            <li><strong>Modularity:</strong> transport, events, payments, and identity as separate domains.</li>
+            <li><strong>Resilience:</strong> graceful degradation over hard failure.</li>
+            <li><strong>Event-driven thinking:</strong> state changes over polling.</li>
+            <li><strong>Operational clarity:</strong> observability as a first-class concern.</li>
           </ul>
         </ProjectSectionText>
       </ProjectSectionContent>
@@ -175,88 +240,81 @@ const Tier3_Architecture = () => (
 
     <ProjectSection>
       <ProjectSectionContent>
-        <ProjectSectionHeading>Polyglot rationale</ProjectSectionHeading>
+        <ProjectSectionHeading>Technology direction (exploratory)</ProjectSectionHeading>
         <ProjectSectionText>
-          Orbion uses polyglot architecture intentionally:
+          The following choices reflect architectural intent
+          rather than fully implemented services:
           <ul>
-            <li><strong>API gateway:</strong> Node.js + TypeScript — speed + ecosystem.</li>
-            <li><strong>High-concurrency domains:</strong> Go — predictable performance.</li>
-            <li><strong>Data/ML flows:</strong> Python — experimentation velocity.</li>
-            <li><strong>Critical systems:</strong> Rust — correctness and reliability.</li>
-            <li><strong>Messaging:</strong> Kafka — low-latency event streams.</li>
-            <li><strong>Storage:</strong> PostgreSQL + Redis + Elastic — transactional + caching + search.</li>
+            <li><strong>Frontend:</strong> React + TypeScript.</li>
+            <li><strong>APIs:</strong> Node.js + TypeScript.</li>
+            <li><strong>High-concurrency domains:</strong> Go (planned).</li>
+            <li><strong>Critical components:</strong> Rust (evaluated, not implemented).</li>
+            <li><strong>Messaging:</strong> Kafka (conceptual).</li>
+            <li><strong>Storage:</strong> PostgreSQL, Redis, search layer.</li>
           </ul>
-          Each domain uses the right tool for its operational profile.
-        </ProjectSectionText>
-      </ProjectSectionContent>
-    </ProjectSection>
-
-    <ProjectSection>
-      <ProjectSectionContent>
-        <ProjectSectionHeading>Technical overview</ProjectSectionHeading>
-        <ProjectSectionText>
-          <strong>Frontend:</strong> React + TypeScript (component-driven).  
-          <strong>Backend:</strong> Polyglot microservices (Go / Node / Python / Rust).  
-          <strong>Messaging:</strong> Kafka for real-time sync.  
-          <strong>Storage:</strong> PostgreSQL, Redis, Elastic search layer.  
-          <strong>Observability:</strong> metrics, logs, distributed tracing.
         </ProjectSectionText>
       </ProjectSectionContent>
     </ProjectSection>
 
     <TierHeader heading="Scalability thinking">
-      Start small, extract patterns, and isolate high-load domains like transit and notifications.
+      The system is designed to start small,
+      identify high-load domains,
+      and isolate them incrementally
+      rather than scaling prematurely.
     </TierHeader>
 
-    <TierHeader heading="Trade-offs & decisions">
-      Polyglot complexity increases operational overhead but enables performance,
-      reliability, and long-term maintainability — essential for a city-scale system.
+    <TierHeader heading="Trade-offs">
+      A polyglot approach increases operational complexity,
+      but enables clearer domain boundaries
+      and workload-specific optimization at larger scales.
     </TierHeader>
   </Fragment>
 );
 
 /* ---------------------------------------------
-   Tier 4 — Reflection & Roadmap
+   Tier 5 — Reflection & Roadmap
 ---------------------------------------------- */
 
-const Tier4_Reflection = () => (
+const Tier5_Reflection = () => (
   <Fragment>
     <TierHeader heading="Reflection">
-      Orbion is an exercise in disciplined ambition — keeping the system composable while keeping
-      the UX calm. Complexity belongs in the platform, not the interface.
+      Orbion is an exercise in disciplined ambition —
+      keeping architectural complexity away from the user interface.
+      The project prioritizes clarity of thought
+      over feature completeness.
     </TierHeader>
 
     <ProjectSection>
       <ProjectSectionContent>
-        <ProjectSectionHeading>What’s next</ProjectSectionHeading>
+        <ProjectSectionHeading>Exploration roadmap</ProjectSectionHeading>
         <ProjectSectionText>
-          <strong>0–6 months</strong>
+          <strong>Near term</strong>
           <ul>
-            <li>Refine design system + accessibility baseline.</li>
-            <li>Integrate live city data (transit + weather).</li>
-            <li>Mobile-first commuter flows.</li>
+            <li>Refine interaction patterns and accessibility baseline.</li>
+            <li>Improve layout consistency and component semantics.</li>
           </ul>
 
-          <strong>6–24 months</strong>
+          <strong>Mid term</strong>
           <ul>
-            <li>Marketplace + partner integrations.</li>
-            <li>SLA-backed observability + distributed tracing.</li>
-            <li>Municipality pilot for operations dashboards.</li>
+            <li>Integrate limited real-world datasets for validation.</li>
+            <li>Define stable domain boundaries and contracts.</li>
           </ul>
 
-          <strong>24+ months</strong>
+          <strong>Long term</strong>
           <ul>
-            <li>Platformization — SDKs, partner APIs, modular extensions.</li>
-            <li>Monetization — enterprise SaaS, marketplace fees, premium features, data/insight licensing.</li>
+            <li>Explore platformization through APIs and extensions.</li>
+            <li>Evaluate operational dashboards and observability concepts.</li>
           </ul>
         </ProjectSectionText>
       </ProjectSectionContent>
     </ProjectSection>
 
     <TierHeader heading="Closing thought">
-      Orbion asks a simple question:
-      <em>“What if a city behaved like a unified operating system?”</em>
-      This project is my ongoing attempt to answer it — through clarity, design, engineering, and slow iteration.
+      Orbion explores a simple question:
+      <em>“What would city software look like if it were designed as a coherent system?”</em>
+      <br />
+      This project documents how I think about that question —
+      through design, architecture, and incremental exploration.
     </TierHeader>
   </Fragment>
 );
@@ -287,8 +345,10 @@ export const Orbion = () => {
 
         <Tier1_Why />
         <Tier2_Experience />
-        <Tier3_Architecture />
-        <Tier4_Reflection />
+        <Tier3_Security />
+        <Tier4_Architecture />
+        <Tier5_Reflection />
+
       </ProjectContainer>
 
       <Footer />
@@ -296,4 +356,4 @@ export const Orbion = () => {
   );
 };
 
-export default Orbion;
+export default Orbion; 
