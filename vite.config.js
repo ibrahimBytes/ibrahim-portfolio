@@ -1,3 +1,4 @@
+// vite.config.js
 import {
   vitePlugin as remix,
   cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,

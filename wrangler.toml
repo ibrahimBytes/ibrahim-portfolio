@@ -1,4 +1,0 @@
-name = "ibrahim-portfolio"
-main = "build/server/index.js"
-assets = { directory = "build/client" }
-compatibility_date = "2025-01-01"

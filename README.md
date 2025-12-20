@@ -4,16 +4,52 @@
 
 <h1 align="center">Ibrahim — Personal Portfolio</h1>
 
-[![Site preview](/public/site-preview.png)](https://ibrahim-portfolio.pages.dev/)
+<p align="center">
+  <a href="https://ibrahim-portfolio.pages.dev/">
+    <img src="/public/site-preview.png" alt="Site preview" />
+  </a>
+</p>
+A custom-built, performance-focused developer portfolio showcasing selected projects, technical skills, and engineering decisions.
 
-A custom-built, high-performance developer portfolio created to showcase my personal projects, skills, and engineering capabilities.  
-Built using **Next.js**, **React**, **Framer Motion**, and optional **Three.js** for visual effects.
+👉 **Live site:** https://ibrahim-portfolio.pages.dev/ 
 
-👉 **Live site:** https://ibrahim-portfolio.pages.dev/
+## Tech Stack
 
-## Install & run
+- **Remix (Vite)**
+- **React 18**
+- **Cloudflare Pages**
+- **Framer Motion**
+- **Three.js** (select background visuals)
+- **MDX**
+- **Storybook**
 
-Make sure you have nodejs `19.9.0` or higher and npm `9.6.3` or higher installed. Install dependencies with:
+> This project intentionally uses Remix instead of Next.js for Cloudflare-native deployment and edge rendering.
+
+## Architecture & Engineering Notes
+
+### Why Remix + Cloudflare Pages
+- Edge-rendered server components
+- Low TTFB via Cloudflare Workers
+- Explicit routing and data loading
+- Clear server/client separation
+
+### Build Decisions
+- **CSS code splitting is disabled**
+  - Prevents production layout collapse caused by non-deterministic CSS chunk ordering
+  - Tradeoff: slightly larger CSS payload for deterministic rendering
+- **3D asset support**
+  - `.glb`, `.hdr`, and shader files explicitly included in the build pipeline
+
+These choices were made after debugging real production issues — not copied from templates.
+
+
+## Local Development
+
+### Requirements
+- **Node.js ≥ 18.18.0 (LTS recommended)**
+- **npm ≥ 9**
+
+Install dependencies:
 
 ```bash
 npm install
@@ -33,41 +69,40 @@ npm run dev:storybook
 
 ## Deployment
 
-I've set up the site using Cloudflare zfor hosting. Deploy the site to Cloudflare Pages:
+This project is deployed on Cloudflare Pages.
 
 ```bash
 npm run deploy
 ```
 
-## Permissions / License (Closed-Source)
+## Access & Usage
 
-This project is NOT open source.
+## Private Repository — Restricted Access
+This repository is private and not intended for public use, distribution, or reuse.
 
-❌ You may NOT copy this project
+Unauthorized actions are not permitted, including but not limited to:
 
-❌ You may NOT reuse any significant part of the code
+Copying or reusing code
 
-❌ You may NOT redistribute, modify, or adapt the design
+Replicating design, animations, or layout
 
-❌ You may NOT claim any project inside this portfolio as your own
+Redistributing or modifying any part of the project
 
-❌ You may NOT clone, replicate, or fork this portfolio
+Claiming any work contained here as your own
 
-All code, design, images, animations, and components are private intellectual property of Ibrahim.
-
-If you want to build your own portfolio, you must create your own original design.
-
-You are allowed to view the code only for recruitment and verification purposes.
+All code, design, assets, and intellectual property belong to <b>Ibrahim</b>.
 ## FAQs
 
-<details>
-  <summary>How do I change the color on the <code>DisplacementSphere</code> (blobby rotating thing in the background).</summary>
-  
-  You'll need to edit the fragment shader. [Check out this issue for more details](https://github.com/ibrahimBytes/portfolio/issues/19#issuecomment-870996615).
-</details>
+<details> <summary>How do I change the color of the background displacement sphere?</summary>
 
-<details>
-  <summary>How do I get the contact form to work?</summary>
-  
-  To get the contact form working create an AWS account and set up SES (Simple Email service). Then plug in your details into `.dev.vars.example` and rename it to `.dev.vars`. You'll also need to add these as enviroment variables in the Cloudflare dashboard for it to work in production. Or if you don't mind sending through gmail use [nodemailer](https://nodemailer.com/) instead.
-</details>
+Edit the fragment shader used by the Three.js material.
+
+See this discussion for details:
+https://github.com/ibrahimBytes/portfolio/issues/19#issuecomment-870996615
+
+</details> <details> <summary>Why is CSS code splitting disabled?</summary>
+
+In production builds, CSS chunking caused layout instability due to non-deterministic load order.
+Disabling it ensures predictable rendering at the cost of a slightly larger CSS bundle.
+
+</details> ``` 

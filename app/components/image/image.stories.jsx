@@ -1,35 +1,35 @@
 import { Image } from '~/components/image';
 import { StoryContainer } from '../../../.storybook/story-container';
 
+// Bundled asset (NOT public/)
+import profileImage from '~/assets/profile.jpg';
+
 export default {
   title: 'Image',
 };
 
-const imageData = {
-  alt: 'An abstract purple and pink neon thing',
-  src: '/static/modern-styling-in-react-banner.jpg',
-  width: 960,
-  height: 540,
-  placeholder: '/static/modern-styling-in-react-banner-placeholder.jpg',
+const baseImageArgs = {
+  alt: 'Profile photo',
+  src: profileImage,
+  width: 400,
+  height: 400,
 };
 
-const Story = args => (
+const Template = args => (
   <StoryContainer>
-    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0px, 960px)' }}>
-      <Image alt="An abstract purple and pink neon thing" {...imageData} {...args} />
+    <div style={{ maxWidth: 400 }}>
+      <Image {...args} />
     </div>
   </StoryContainer>
 );
 
-export const Default = Story.bind({});
-
+export const Default = Template.bind({});
 Default.args = {
-  ...imageData,
+  ...baseImageArgs,
 };
 
-export const Reveal = Story.bind({});
-
+export const Reveal = Template.bind({});
 Reveal.args = {
-  ...imageData,
+  ...baseImageArgs,
   reveal: true,
 };
