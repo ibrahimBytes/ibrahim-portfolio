@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "description": "Portfolio site for Ibrahim Shaik",
-  "repository": "https://github.com/ibrahimbyte/portfolio.git",
+  "repository": "https://github.com/ibrahimBytes/ibrahim-portfolio.git",
   "author": "Ibrahim Shaik",
   "sideEffects": false,
   "type": "module",
