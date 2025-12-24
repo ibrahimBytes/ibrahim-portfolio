@@ -5,13 +5,13 @@
 <h1 align="center">Ibrahim — Personal Portfolio</h1>
 
 <p align="center">
-  <a href="https://f552a27f.portfolio-dhn.pages.dev/">
+  <a href="https://portfolio-dhn.pages.dev/">
     <img src="/public/site-preview.png" alt="Site preview" />
   </a>
 </p>
 A custom-built, performance-focused developer portfolio showcasing selected projects, technical skills, and engineering decisions.
 
-👉 **Live site:** https://f552a27f.portfolio-dhn.pages.dev/
+👉 **Live site:** https://portfolio-dhn.pages.dev/
 
 ## Tech Stack
 
