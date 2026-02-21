@@ -1,4 +1,3 @@
-// vite.config.js
 import {
   vitePlugin as remix,
   cloudflareDevProxyVitePlugin as remixCloudflareDevProxy,
@@ -14,40 +13,29 @@ import rehypePrism from '@mapbox/rehype-prism';
 
 export default defineConfig({
   assetsInclude: ['**/*.glb', '**/*.hdr', '**/*.glsl'],
-
-  // ⚠️ THIS IS THE MISSING PIECE THAT FIXES YOUR UI COLLAPSE
   build: {
     assetsInlineLimit: 1024,
-    cssCodeSplit: false,            // <-- DO NOT REMOVE THIS
-    chunkSizeWarningLimit: 1500,    // optional (prevents noise)
-  },
+    // cssCodeSplit: false,            // <-- DO NOT REMOVE THIS
+    // chunkSizeWarningLimit: 1500,    // optional (prevents noise)
 
+  },
   server: {
     port: 7777,
   },
-
   plugins: [
     mdx({
-      rehypePlugins: [
-        [rehypeImgSize, { dir: 'public' }],
-        rehypeSlug,
-        rehypePrism,
-      ],
+      rehypePlugins: [[rehypeImgSize, { dir: 'public' }], rehypeSlug, rehypePrism],
       remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
       providerImportSource: '@mdx-js/react',
     }),
-
-    // needed for Remix Vite CF dev
     remixCloudflareDevProxy(),
-
     remix({
       routes(defineRoutes) {
-        return defineRoutes((route) => {
+        return defineRoutes(route => {
           route('/', 'routes/home/route.js', { index: true });
         });
       },
     }),
-
     jsconfigPaths(),
   ],
-}); 
+});

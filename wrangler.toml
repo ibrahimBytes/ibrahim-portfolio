@@ -1,0 +1,9 @@
+name = "portfolio"
+
+pages_build_output_dir = "build/client"
+
+compatibility_date = "2024-09-01"
+
+kv_namespaces = [
+  { binding = "MY_KV", id = "c87d981be12f42f4ad673030c34a7009" }
+]

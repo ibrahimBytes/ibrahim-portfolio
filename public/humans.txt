@@ -5,29 +5,29 @@
  _| |_
 |_____|
 
-The humans.txt file explains the person, mindset,
-and technical identity behind IBRAHIM.
+The humans.txt file describes the person and engineering direction
+behind IBRAHIM.
 
 _______________________________________________________________________________
 
 CREATOR | クリエイター
 
 Ibrahim  
-System-level learner • Future Architect
+Systems-oriented software engineer in progress
 
-Focused on mastering deep computer science:
-C++ • OS internals • Memory • Databases • Networking  
-Concurrency • Distributed Systems • Compilers • Low-level Engineering  
-Hardware–Software Integration
+Interested in understanding software beneath the surface:
+C++ • Operating Systems • Memory behavior • Databases • Networking  
+Concurrency • Distributed systems • Compilers • Low-level engineering  
+Hardware–software interaction
 
 _______________________________________________________________________________
 
 PHILOSOPHY | フィロソフィー
 
-Truth > Comfort  
-Depth > Hype  
-Systems > Shortcuts  
-Faith • Discipline • Relentless Curiosity
+Depth over surface  
+Fundamentals over trends  
+Clarity over hype  
+Faith • Discipline • Curiosity
 
 _______________________________________________________________________________
 
@@ -39,30 +39,31 @@ React
 Node.js  
 MySQL  
 MongoDB  
-AWS (Basics)  
-Docker • Kubernetes (Basics)  
 REST APIs  
-OS Fundamentals  
-Beginner: Swift • C • Compilers • Networking Layers
+
+Linux environment  
+OS fundamentals  
+
+Basic exposure:  
+AWS • Docker • Kubernetes  
+Swift • C • Networking layers • Compiler concepts
 
 _______________________________________________________________________________
 
 CURRENT FOCUS | 現在のフォーカス
 
-Low-level mastery  
-System architecture  
-Hardware–software integration  
-Apple-grade engineering mindset  
-Becoming future-proof in the AI era
+Strengthening low-level understanding  
+Building backend and systems projects  
+Studying architecture patterns and performance behavior  
+Developing long-term systems engineering capability
 
 _______________________________________________________________________________
 
-FUTURE GOAL | 将来の目標
+FUTURE DIRECTION | 将来の方向
 
-Build large-scale systems  
-Create deep-tech products  
-Become a system architect / deep-tech entrepreneur  
-Solve real problems with real engineering
+Contribute to large-scale infrastructure and platform systems  
+Build reliable software with strong architectural foundations  
+Explore deep-tech product development over time
 
 _______________________________________________________________________________
 
@@ -70,24 +71,24 @@ TOOLS | ツール
 
 VS Code  
 Xcode  
-Linux Terminal  
+Linux terminal  
 Git + GitHub  
 Docker  
-FigJam (architecture diagrams)
+FigJam (design & architecture sketches)
 
 _______________________________________________________________________________
 
 INSPIRATION | インスピレーション
 
-Linus Torvalds (technology discipline)  
-Elon Musk (risk + engineering ambition)  
-Tim Cook (precision in execution)
+Linus Torvalds — engineering rigor  
+Elon Musk — ambition and execution scale  
+Tim Cook — operational precision
 
 _______________________________________________________________________________
 
 FONTS | フォント
 
 JetBrains Mono  
-SF Pro (Apple)  
+SF Pro  
 Inter  
 Hiragino Kaku Gothic Standard 

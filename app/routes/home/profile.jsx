@@ -28,14 +28,14 @@ import styles from "./profile.module.css";
 const PROFILE_CONFIG = {
   name: "Ibrahim Shaik",
   titles: [
-    "Software Architect",
-    "Low-Level Engineering Learner",
-    "Deep-Tech Future Builder"
+    "Systems-Oriented Engineer",
+    "Backend & Low-Level Learner",
+    "Distributed Systems Explorer"
   ],
   bio: [
-    `I’m mastering core computer science — from C++ internals to OS, memory, networking, and distributed systems.`,
-    `My engineering philosophy is simple: depth over hype, fundamentals over frameworks, truth over shortcuts.`,
-    `My long-term goal is to design and build large-scale systems, compilers, and hardware–software integrated technologies.`,
+    `I build backend applications while actively exploring system internals — including C++ behavior, operating systems, memory, and networking.`,
+    `My focus is developing a strong engineering foundation through hands-on projects, experiments, and incremental system building.`,
+    `I’m working toward designing reliable large-scale systems and understanding the layers beneath modern software platforms.`,
   ],
   links: {
     github: "https://github.com/ibrahimBytes",
@@ -79,7 +79,7 @@ const ProfileText = ({ visible, titleId, config }) => {
       </Heading>
 
       <Text className={styles.description} as="p" data-visible={visible}>
-        I’m a <strong>{titles[0]}</strong> and <strong>{titles[1]}</strong>.
+        I’m a <strong>{titles[0]}</strong> focused on <strong>{titles[1]}</strong> and <strong>{titles[2]}</strong>.
       </Text>
 
       {bio.map((line, i) => (

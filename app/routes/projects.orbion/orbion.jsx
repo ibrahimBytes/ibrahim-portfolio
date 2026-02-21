@@ -27,9 +27,9 @@ import styles from './orbion.module.css';
 
 const title = 'Orbion — Smart City Platform (Exploratory)';
 const description =
-  'Orbion is an exploratory smart city platform focused on UX architecture, system design, and scalable software thinking.';
+  'Orbion is an exploratory smart city platform examining unified UX, domain-driven thinking, and distributed software concepts.';
 
-const roles = ['Product Thinking', 'System Design', 'UX Architecture'];
+const roles = ['Concept Design', 'UX Exploration', 'System Thinking'];
 
 export const meta = () => baseMeta({ title, description, prefix: 'Projects' });
 
@@ -74,38 +74,38 @@ const FullscreenButton = ({ onClick }) => (
 );
 
 /* ---------------------------------------------
-   Tier 1 — WHY (Vision, not promises)
+   Tier 1 — WHY
 ---------------------------------------------- */
 
 const Tier1_Why = () => (
   <Fragment>
     <TierHeader heading="The problem">
-      Modern cities expose users to fragmented digital systems —
-      separate apps for transport, events, weather, payments, and civic services.
-      This fragmentation increases cognitive load and breaks continuity
-      in everyday tasks.
+      Everyday city interactions are fragmented across multiple applications —
+      transport, events, alerts, payments, and civic services operate in isolation.
+      This fragmentation increases cognitive load and reduces continuity
+      in routine tasks.
     </TierHeader>
 
     <TierHeader heading="The idea">
-      Orbion explores the idea of treating a city as a single, predictable interface —
-      a place to discover information, make decisions, and take action
-      without constantly switching contexts.
+      Orbion explores the concept of treating a city as a unified interface —
+      a place where discovery, decision-making, and action can occur
+      without repeated context switching.
       <br /><br />
-      The goal is not to replace existing systems,
-      but to rethink how they are experienced together.
+      The project does not aim to replace existing platforms,
+      but to examine how they might be experienced coherently.
     </TierHeader>
 
-    <TierHeader heading="Why this matters">
-      For citizens, unification reduces friction and mental overhead.  
-      For operators and governments, it improves visibility and coordination.  
-      For engineers, it presents a distributed systems problem
-      expressed through user experience.
+    <TierHeader heading="Why explore this">
+      For citizens, unification may reduce friction and mental overhead.  
+      For operators, it may improve coordination visibility.  
+      For engineers, it presents a distributed systems problem expressed
+      through interaction design.
     </TierHeader>
   </Fragment>
 );
 
 /* ---------------------------------------------
-   Tier 2 — EXPERIENCE (Prototype, not product)
+   Tier 2 — EXPERIENCE
 ---------------------------------------------- */
 
 const Tier2_Experience = () => {
@@ -114,31 +114,29 @@ const Tier2_Experience = () => {
   return (
     <Fragment>
       <TierHeader heading="Experience focus">
-        The experience is intentionally calm and predictable.
-        Clear hierarchy, limited choices, and progressive disclosure
-        are used to reduce cognitive effort in real-world conditions.
+        The interface exploration emphasizes calm navigation,
+        predictable hierarchy, and progressive disclosure
+        to reduce decision effort in real-world scenarios.
       </TierHeader>
 
-      <TierHeader heading="Unified dashboard concept">
+      <TierHeader heading="Dashboard concept">
         The dashboard acts as a conceptual city console —
-        surfacing relevant transit, alerts, events, and actions
-        based on context such as location and time.
+        surfacing transit, alerts, events, and actions
+        relative to user context such as location and time.
       </TierHeader>
 
-      <TierHeader heading="Prototype intent">
-        This interface is not a finished product.
-        It is an interaction prototype designed to explore
+      <TierHeader heading="Prototype scope">
+        This interface is an interaction prototype intended to explore
         layout rhythm, component consistency, and information hierarchy.
+        Production integration and data accuracy are intentionally out of scope.
       </TierHeader>
 
       <ProjectSection>
         <ProjectSectionContent>
           <ProjectSectionHeading>UI prototype</ProjectSectionHeading>
           <ProjectSectionText>
-            The preview below demonstrates early interaction patterns
-            and structural decisions.
-            Visual polish and live production data
-            are intentionally out of scope at this stage.
+            The preview demonstrates early structural patterns and interaction ideas.
+            Visual refinement and live integrations are future exploration areas.
           </ProjectSectionText>
 
           <FullscreenButton onClick={toggle} />
@@ -163,24 +161,21 @@ const Tier2_Experience = () => {
 
 const Tier3_Security = () => (
   <Fragment>
-    <TierHeader heading="Security considerations">
-      Security in Orbion is approached as a design concern,
-      not a bolt-on feature.
-      The focus at this stage is on defining trust boundaries,
-      minimizing blast radius, and enforcing clear responsibility
-      between domains.
+    <TierHeader heading="Security perspective">
+      Security considerations are explored conceptually,
+      focusing on trust boundaries, domain ownership,
+      and failure isolation rather than implemented controls.
     </TierHeader>
 
     <ProjectSection>
       <ProjectSectionContent>
-        <ProjectSectionHeading>Threat-aware design</ProjectSectionHeading>
+        <ProjectSectionHeading>Threat-aware thinking</ProjectSectionHeading>
         <ProjectSectionText>
-          The system assumes partial failure and untrusted inputs by default.
-          Core assumptions include:
+          The conceptual model assumes partial failure and untrusted inputs by default:
           <ul>
-            <li>Clients are never trusted.</li>
-            <li>Each domain validates and owns its data.</li>
-            <li>Failures are isolated to prevent cascading impact.</li>
+            <li>Clients are treated as untrusted.</li>
+            <li>Domains validate and own their data.</li>
+            <li>Failures should degrade locally rather than cascade.</li>
           </ul>
         </ProjectSectionText>
       </ProjectSectionContent>
@@ -188,51 +183,43 @@ const Tier3_Security = () => (
 
     <ProjectSection>
       <ProjectSectionContent>
-        <ProjectSectionHeading>Planned security controls</ProjectSectionHeading>
+        <ProjectSectionHeading>Potential controls</ProjectSectionHeading>
         <ProjectSectionText>
-          While not fully implemented, the architecture accounts for:
+          Architectural exploration includes:
           <ul>
-            <li><strong>Authentication:</strong> centralized identity with short-lived tokens.</li>
-            <li><strong>Authorization:</strong> role- and scope-based access per domain.</li>
-            <li><strong>API boundaries:</strong> strict contracts and input validation.</li>
-            <li><strong>Data protection:</strong> encryption in transit and at rest.</li>
-            <li><strong>Rate limiting:</strong> abuse prevention at gateway level.</li>
+            <li>centralized identity with short-lived credentials</li>
+            <li>domain-scoped authorization</li>
+            <li>explicit API contracts and validation</li>
+            <li>encrypted communication pathways</li>
+            <li>gateway-level rate limiting</li>
           </ul>
         </ProjectSectionText>
       </ProjectSectionContent>
     </ProjectSection>
-
-    <TierHeader heading="Security trade-offs">
-      Strong isolation and validation increase operational complexity,
-      but they significantly reduce systemic risk —
-      a necessary trade-off for city-scale software.
-    </TierHeader>
   </Fragment>
 );
 
-
 /* ---------------------------------------------
-   Tier 4 — ARCHITECTURE (Explicitly conceptual)
+   Tier 4 — Architecture
 ---------------------------------------------- */
 
 const Tier4_Architecture = () => (
   <Fragment>
     <TierHeader heading="Architecture perspective">
-      Orbion approaches a city as a distributed system composed of
-      independent domains communicating through well-defined interfaces.
-      This section reflects architectural thinking,
-      not a production deployment.
+      Orbion frames a city as a distributed system composed of domain-aligned services
+      communicating through explicit interfaces.
+      This reflects architectural exploration rather than deployed infrastructure.
     </TierHeader>
 
     <ProjectSection>
       <ProjectSectionContent>
-        <ProjectSectionHeading>Core principles</ProjectSectionHeading>
+        <ProjectSectionHeading>Core themes</ProjectSectionHeading>
         <ProjectSectionText>
           <ul>
-            <li><strong>Modularity:</strong> transport, events, payments, and identity as separate domains.</li>
-            <li><strong>Resilience:</strong> graceful degradation over hard failure.</li>
-            <li><strong>Event-driven thinking:</strong> state changes over polling.</li>
-            <li><strong>Operational clarity:</strong> observability as a first-class concern.</li>
+            <li>domain modularity across transport, events, identity, and payments</li>
+            <li>graceful degradation instead of hard failure</li>
+            <li>event-driven state propagation concepts</li>
+            <li>observability as an architectural concern</li>
           </ul>
         </ProjectSectionText>
       </ProjectSectionContent>
@@ -240,48 +227,33 @@ const Tier4_Architecture = () => (
 
     <ProjectSection>
       <ProjectSectionContent>
-        <ProjectSectionHeading>Technology direction (exploratory)</ProjectSectionHeading>
+        <ProjectSectionHeading>Technology direction</ProjectSectionHeading>
         <ProjectSectionText>
-          The following choices reflect architectural intent
-          rather than fully implemented services:
+          Technology choices represent exploratory direction:
           <ul>
-            <li><strong>Frontend:</strong> React + TypeScript.</li>
-            <li><strong>APIs:</strong> Node.js + TypeScript.</li>
-            <li><strong>High-concurrency domains:</strong> Go (planned).</li>
-            <li><strong>Critical components:</strong> Rust (evaluated, not implemented).</li>
-            <li><strong>Messaging:</strong> Kafka (conceptual).</li>
-            <li><strong>Storage:</strong> PostgreSQL, Redis, search layer.</li>
+            <li>React + TypeScript for interface prototyping</li>
+            <li>Node.js APIs for integration experiments</li>
+            <li>Go for potential high-concurrency domains</li>
+            <li>Rust evaluation for critical components</li>
+            <li>event streaming concepts (Kafka)</li>
+            <li>relational, cache, and search storage layers</li>
           </ul>
         </ProjectSectionText>
       </ProjectSectionContent>
     </ProjectSection>
-
-    <TierHeader heading="Scalability thinking">
-      The system is designed to start small,
-      identify high-load domains,
-      and isolate them incrementally
-      rather than scaling prematurely.
-    </TierHeader>
-
-    <TierHeader heading="Trade-offs">
-      A polyglot approach increases operational complexity,
-      but enables clearer domain boundaries
-      and workload-specific optimization at larger scales.
-    </TierHeader>
   </Fragment>
 );
 
 /* ---------------------------------------------
-   Tier 5 — Reflection & Roadmap
+   Tier 5 — Reflection
 ---------------------------------------------- */
 
 const Tier5_Reflection = () => (
   <Fragment>
     <TierHeader heading="Reflection">
-      Orbion is an exercise in disciplined ambition —
-      keeping architectural complexity away from the user interface.
-      The project prioritizes clarity of thought
-      over feature completeness.
+      Orbion represents an exploration in aligning ambitious system thinking
+      with a restrained user experience surface.
+      The emphasis remains on clarity of ideas rather than feature breadth.
     </TierHeader>
 
     <ProjectSection>
@@ -290,31 +262,30 @@ const Tier5_Reflection = () => (
         <ProjectSectionText>
           <strong>Near term</strong>
           <ul>
-            <li>Refine interaction patterns and accessibility baseline.</li>
-            <li>Improve layout consistency and component semantics.</li>
+            <li>interaction refinement and accessibility baseline</li>
+            <li>layout consistency and semantic improvements</li>
           </ul>
 
           <strong>Mid term</strong>
           <ul>
-            <li>Integrate limited real-world datasets for validation.</li>
-            <li>Define stable domain boundaries and contracts.</li>
+            <li>limited dataset integration for concept validation</li>
+            <li>clearer domain contracts</li>
           </ul>
 
           <strong>Long term</strong>
           <ul>
-            <li>Explore platformization through APIs and extensions.</li>
-            <li>Evaluate operational dashboards and observability concepts.</li>
+            <li>platformization exploration via APIs</li>
+            <li>observability and operational thinking experiments</li>
           </ul>
         </ProjectSectionText>
       </ProjectSectionContent>
     </ProjectSection>
 
     <TierHeader heading="Closing thought">
-      Orbion explores a simple question:
-      <em>“What would city software look like if it were designed as a coherent system?”</em>
+      Orbion explores a single question:
+      <em>What might city software feel like if designed as a coherent system?</em>
       <br />
-      This project documents how I think about that question —
-      through design, architecture, and incremental exploration.
+      This project documents ongoing exploration around that question.
     </TierHeader>
   </Fragment>
 );
@@ -339,7 +310,7 @@ export const Orbion = () => {
         <ProjectHeader
           title={title}
           description={description}
-          url="https://github.com/ibrahimBytes"
+          url="https://github.com/ibrahimBytes/orbion-ui"
           roles={roles}
         />
 
@@ -348,7 +319,6 @@ export const Orbion = () => {
         <Tier3_Security />
         <Tier4_Architecture />
         <Tier5_Reflection />
-
       </ProjectContainer>
 
       <Footer />

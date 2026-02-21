@@ -2,11 +2,11 @@
   "name": "Ibrahim Shaik",
   "role": "Software Architect",
   "disciplines": [
-    "UI/UX Dev",
+    "Backend",
     "Full-Stack",
-    "Systems Engineer",
-    "DevOps & Cloud",
-    "AI/ML Engineer"
+    "Systems Design",
+    "Linux",
+    "Distributed Systems"
   ],
   "url": "https://ibrahim-ach.pages.dev/",
   "email": "s.ibrahim.devx@gmail.com",
@@ -14,8 +14,13 @@
   "github": "ibrahimBytes",
   "bluesky": "s-ibrahim-dev.bsky.social",
   "figma": "files/team/1495019875907826671/recents-and-sharing?fuid=1495019874124838694",
+<<<<<<< Updated upstream
   "repo": "https://github.com/ibrahimBytes/ibrahim-portfolio",
   "quote": "I build systems that scale — clean architecture, clean logic, zero nonsense.",
+=======
+  "repo": "https://github.com/ibrahimBytes/ibrahim_portfolio",
+  "quote": "I build backend systems and explore how software works beneath the surface — focusing on architecture, state, and performance.",
+>>>>>>> Stashed changes
   "ascii": [
     "██╗██████╗  ██████╗  █████╗ ██╗  ██╗ ██╗  ███╗    ███╗",
     "██║██╔══██╗ ██╔══██╗██╔══██╗██║  ██╔╝██║ ║██ ██╗ ██ ██║",
