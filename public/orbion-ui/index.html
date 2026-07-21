@@ -3,2574 +3,1339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORBION - Smart City Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>ORBION - Smart City OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap');
+        
         :root {
-            /* Enhanced Color System */
-            --primary-color: #2563eb;
-            --primary-light: #3b82f6;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #64748b;
-            --accent-color: #0ea5e9;
-            --accent-light: #38bdf8;
-            --background-color: #f8fafc;
-            --surface-color: #ffffff;
-            --card-background: #ffffff;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --text-tertiary: #94a3b8;
-            --border-color: #e2e8f0;
-            --border-light: #f1f5f9;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --info-color: #8b5cf6;
-            
-            /* Enhanced Shadows */
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            
-            --radius-sm: 6px;
-            --radius: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
-            
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-fast: all 0.15s ease-out;
-            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* New variables for enhanced UI */
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.18);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
         }
-
-        .dark-theme {
-            /* Matte-Black Base */
-            --background-color: #111;
-            --surface-color: #1a1a1a;
-            --card-background: #1a1a1a;
-
-            /* Blue Primary */
-            --primary-color: #3b82f6;
-            --primary-light: #60a5fa;
-            --primary-dark: #2563eb;
-
-            /* Accent (cool, not neon, fits matte black) */
-            --accent-color: #0ea5e9;
-            --accent-light: #38bdf8;
-
-            /* Text */
-            --text-primary: #f5f5f5;
-            --text-secondary: #c7c7c7;
-            --text-tertiary: #9e9e9e;
-
-            /* Borders — subtle but visible */
-            --border-color: #2b2b2b;
-            --border-light: #3a3a3a;
-
-            /* Shadows — matte style = diffused, low-gloss */
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.35);
-            --shadow: 0 4px 8px rgba(0,0,0,0.45);
-            --shadow-md: 0 10px 18px rgba(0,0,0,0.5);
-            --shadow-lg: 0 18px 28px rgba(0,0,0,0.55);
-            --shadow-xl: 0 25px 40px rgba(0,0,0,0.6);
-
-            /* Glass on matte black needs darker tint */
-            --glass-bg: rgba(25, 25, 25, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --glass-shadow: 0 8px 28px rgba(0,0,0,0.6);
-
-            /* Optional brand colors */
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --info-color: #8b5cf6;
-        }
-
+        
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            scrollbar-width: thin;
+            scrollbar-color: #d4d4d8 #f4f4f5;
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--background-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: var(--transition-slow);
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100vh;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.03) 0%, transparent 50%), 
-                radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.02) 0%, transparent 50%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .dark-theme body::before {
-            background: 
-                radial-gradient(circle at 15% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 50%), 
-                radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
-        }
-
-        .container {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Enhanced Header & Navigation with Glass Morphism */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            box-shadow: var(--shadow-sm);
-            padding: 16px 0;
-            transition: var(--transition);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .scrolled {
-            background: var(--glass-bg);
-            box-shadow: var(--shadow-md);
-            padding: 12px 0;
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            font-size: 1.75rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            transition: var(--transition);
-        }
-
-        .logo:hover::after {
-            width: 100%;
-        }
-
-        .logo:hover {
-            transform: translateY(-1px);
-        }
-
-        .logo-icon {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-        }
-
-        .logo:hover .logo-icon {
-            transform: rotate(5deg) scale(1.05);
-        }
-
-        .search-container {
-            flex: 1;
-            max-width: 600px;
-            margin: 0 40px;
-            position: relative;
-        }
-
-        .search-bar {
-            width: 100%;
-            padding: 14px 52px 14px 20px;
-            border-radius: 50px;
-            border: 1px solid var(--border-color);
-            background-color: var(--glass-bg);
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-weight: 400;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-            backdrop-filter: blur(10px);
-        }
-
-        .search-bar:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1), var(--shadow-md);
-            background-color: var(--surface-color);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .search-bar:focus + .search-icon {
-            color: var(--primary-color);
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .nav-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: var(--transition);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
+        
+        *::-webkit-scrollbar {
             width: 8px;
             height: 8px;
-            background-color: var(--danger-color);
-            border-radius: 50%;
-            border: 2px solid var(--surface-color);
         }
-
-        .nav-btn:hover {
-            color: var(--primary-color);
-            background-color: rgba(37, 99, 235, 0.1);
-            transform: translateY(-1px);
+        
+        *::-webkit-scrollbar-track {
+            background: #f4f4f5;
         }
-
-        .theme-toggle {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .theme-toggle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            opacity: 0;
-            transition: var(--transition);
-            border-radius: 50%;
-        }
-
-        .theme-toggle:hover::before {
-            opacity: 0.1;
-        }
-
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            padding: 8px 16px 8px 8px;
-            border-radius: 50px;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .profile:hover {
-            background-color: rgba(37, 99, 235, 0.1);
-        }
-
-        .profile-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .profile:hover .profile-img {
-            transform: scale(1.05);
-        }
-
-        .profile-name {
-            font-weight: 500;
-        }
-
-        /* Enhanced Main Content */
-        main {
-            padding: 40px 0;
-        }
-
-        .dashboard-header {
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .dashboard-header h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-            position: relative;
-            display: inline-block;
-        }
-
-        .dashboard-header h1::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 2px;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        .dashboard-header h1.animate::after {
-            transform: scaleX(1);
-        }
-
-        .dashboard-header p {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-top: 24px;
-        }
-
-        /* Enhanced Quick Actions with Hover Effects */
-        .quick-actions {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding: 16px 0;
-            margin-bottom: 40px;
-            scrollbar-width: none;
-        }
-
-        .quick-actions::-webkit-scrollbar {
-            display: none;
-        }
-
-        .action-btn {
-            background-color: var(--card-background);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
-            font-weight: 500;
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            opacity: 0;
-            transition: var(--transition);
-            z-index: -1;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-            color: white;
-            border-color: transparent;
-        }
-
-        .action-btn:hover::before {
-            opacity: 1;
-        }
-
-        .action-btn:hover i {
-            transform: scale(1.1);
-        }
-
-        .action-btn i {
-            transition: var(--transition);
-        }
-
-        /* Enhanced City Intelligence Panel with Data Visualization */
-        .city-intelligence {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            margin-bottom: 50px;
-        }
-
-        .intel-card {
-            background-color: var(--card-background);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-        }
-
-        .intel-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: var(--transition);
-        }
-
-        .intel-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .intel-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .intel-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .intel-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 16px;
-            font-size: 1.3rem;
-            box-shadow: var(--shadow);
-        }
-
-        .weather-icon {
-            background-color: rgba(14, 165, 233, 0.1);
-            color: var(--accent-color);
-        }
-
-        .aqi-icon {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--success-color);
-        }
-
-        .traffic-icon {
-            background-color: rgba(245, 158, 11, 0.1);
-            color: var(--warning-color);
-        }
-
-        .intel-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .intel-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            line-height: 1;
-        }
-
-        .intel-details {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 16px;
-        }
-
-        .intel-trend {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .trend-up {
-            color: var(--success-color);
-        }
-
-        .trend-down {
-            color: var(--danger-color);
-        }
-
-        /* Enhanced Services Grid with Advanced Hover Effects */
-        .services-section {
-            margin-bottom: 50px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .section-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 8px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            border-radius: 2px;
-        }
-
-        .view-all {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-            padding: 8px 16px;
-            border-radius: 50px;
-        }
-
-        .view-all:hover {
-            gap: 12px;
-            background-color: rgba(37, 99, 235, 0.1);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .service-card {
-            background-color: var(--card-background);
-            border-radius: var(--radius-lg);
-            padding: 28px 24px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            opacity: 0;
-            transition: var(--transition);
-            z-index: 0;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            color: white;
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-card:hover .service-icon {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .service-card:hover .service-title,
-        .service-card:hover .service-desc {
-            color: white;
-        }
-
-        .service-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            position: relative;
-            z-index: 1;
-        }
-
-        .service-title {
-            font-weight: 600;
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .service-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.5;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Enhanced Footer */
-        footer {
-            background-color: var(--surface-color);
-            padding: 60px 0 30px;
-            margin-top: 80px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            margin-bottom: 24px;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-            transform: translateX(4px);
-        }
-
-        .footer-about {
-            max-width: 300px;
-        }
-
-        .footer-about p {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 16px;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--background-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .social-link:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Enhanced Skeleton Loaders */
-        .skeleton {
-            background: linear-gradient(90deg, var(--background-color) 25%, var(--border-color) 50%, var(--background-color) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
+        
+        *::-webkit-scrollbar-thumb {
+            background: #d4d4d8;
             border-radius: 4px;
         }
-
-        @keyframes loading {
-            0% {
-                background-position: 200% 0;
-            }
-            100% {
-                background-position: -200% 0;
-            }
+        
+        *::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        .skeleton-text {
-            height: 1rem;
-            margin-bottom: 0.5rem;
+        .city-bg {
+            background: linear-gradient(rgba(15, 23, 42, 0.25), rgba(15, 23, 42, 0.4)), 
+                        url('https://picsum.photos/id/1015/1400/720') center/cover no-repeat;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .skeleton-title {
-            height: 1.5rem;
-            width: 60%;
-            margin-bottom: 1rem;
+        .map-bg {
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.25)), 
+                        url('https://picsum.photos/id/1016/800/420') center/cover no-repeat;
+            transition: all 0.6s ease;
         }
 
-        .skeleton-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-bottom: 1rem;
+        .nav-active {
+            background-color: #f8fafc;
+            color: #4338ca;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(67, 56, 202, 0.1);
         }
-
-        /* Floating Action Button with Advanced Animation */
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: var(--shadow-lg);
-            cursor: pointer;
-            transition: var(--transition);
-            z-index: 100;
-            border: none;
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.3s ease;
         }
-
-        .fab:hover {
-            transform: scale(1.1) rotate(90deg);
-            box-shadow: var(--shadow-xl);
+        
+        .glass:hover {
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
-
-        /* Micro-interactions and animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
         @keyframes slideInLeft {
             from { opacity: 0; transform: translateX(-30px); }
             to { opacity: 1; transform: translateX(0); }
         }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6); }
+            50% { box-shadow: 0 0 0 12px rgba(99, 102, 241, 0); }
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        
+        .animate-slide-up {
+            animation: slideInUp 0.6s ease-out forwards;
         }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        .slide-in-left {
+        
+        .animate-slide-left {
             animation: slideInLeft 0.6s ease-out forwards;
         }
-
-        .slide-in-right {
-            animation: slideInRight 0.6s ease-out forwards;
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
-
-        .pulse {
-            animation: pulse 2s infinite;
+        
+        .card-hover:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
-
-        .stagger-item {
-            opacity: 0;
-        }
-
-        /* Advanced Search Panel */
-        .search-panel {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 120px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .search-panel.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .search-panel-close {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .search-panel-close:hover {
-            color: var(--primary-color);
-            transform: rotate(90deg);
-        }
-
-        .search-panel-input {
-            width: 80%;
-            max-width: 700px;
-            padding: 20px 30px;
-            font-size: 1.5rem;
-            border-radius: 50px;
-            border: 1px solid var(--border-color);
-            background: var(--surface-color);
-            color: var(--text-primary);
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 40px;
-        }
-
-        .search-panel-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1), var(--shadow-lg);
-        }
-
-        .search-results {
-            width: 80%;
-            max-width: 700px;
-            background: var(--surface-color);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
+        
+        .btn-primary {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
             overflow: hidden;
         }
-
-        .search-result-item {
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--border-color);
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 40%;
+            height: 200%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255,255,255,0.4),
+                transparent
+            );
+            transform: skewX(-25deg);
+            transition: left 0.6s;
+        }
+        
+        .btn-primary:hover::after {
+            left: 150%;
+        }
+        
+        .nav-link {
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 8px;
+            left: 50%;
+            background-color: #6366f1;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 60%;
+            left: 20%;
+        }
+        
+        .input-focus:focus {
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            border-color: #6366f1;
+        }
+        
+        .service-tile {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            transition: var(--transition);
+        }
+        
+        .service-tile:hover {
+            transform: scale(1.08) translateY(-4px);
+            background-color: #ffffff;
+            border-color: #6366f1;
+            box-shadow: 0 10px 15px -3px rgb(99 102 241 / 0.2);
+        }
+        
+        .live-dot {
+            animation: pulse-glow 2s infinite;
         }
 
-        .search-result-item:hover {
-            background-color: rgba(37, 99, 235, 0.05);
+        .metric-value {
+            font-variant-numeric: tabular-nums;
         }
 
-        .search-result-item:last-child {
-            border-bottom: none;
+        /* Floating Bottom Nav */
+        .floating-nav {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50px;
+            padding: 12px 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 
+                        0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            z-index: 40;
+            animation: slideUpNav 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
 
-        /* Responsive Design - Enhanced */
-        @media (max-width: 1200px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr 1fr;
+        @keyframes slideUpNav {
+            from {
+                transform: translateX(-50%) translateY(120px);
+                opacity: 0;
             }
-            
-            .footer-about {
-                grid-column: 1 / -1;
-                max-width: 100%;
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
             }
         }
 
-        @media (max-width: 1024px) {
-            .services-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            }
+        .floating-nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.08);
+            color: #6366f1;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 20px;
+        }
+
+        .floating-nav-item:hover {
+            background: rgba(99, 102, 241, 0.15);
+            transform: scale(1.1) translateY(-4px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .floating-nav-item.active {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .floating-nav-item-label {
+            position: absolute;
+            bottom: -28px;
+            font-size: 11px;
+            font-weight: 600;
+            text-zinc-600;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .floating-nav-item:hover .floating-nav-item-label {
+            opacity: 1;
+        }
+
+        .fab-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            box-shadow: 0 12px 35px rgba(99, 102, 241, 0.35);
+            width: 56px;
+            height: 56px;
+        }
+
+        .fab-primary:hover {
+            transform: scale(1.15) translateY(-6px) !important;
+            box-shadow: 0 16px 45px rgba(99, 102, 241, 0.45) !important;
+        }
+
+        /* Charts Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .chart-container canvas {
+            max-height: 280px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 20px;
+            padding: 16px;
         }
 
         @media (max-width: 768px) {
-            .nav-container {
-                flex-wrap: wrap;
+            .floating-nav {
+                padding: 10px 16px;
+                bottom: 16px;
             }
-            
-            .search-container {
-                order: 3;
-                margin: 20px 0 0;
-                max-width: 100%;
+
+            .floating-nav-item {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
             }
-            
-            .services-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-            
-            .service-card {
-                padding: 20px;
-            }
-            
-            .service-icon {
-                width: 56px;
-                height: 56px;
-                font-size: 1.3rem;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
-            }
-            
-            .dashboard-header h1 {
-                font-size: 2.5rem;
+
+            .fab-primary {
+                width: 52px;
+                height: 52px;
             }
         }
 
         @media (max-width: 640px) {
-            .city-intelligence {
-                grid-template-columns: 1fr;
+            .floating-nav {
+                padding: 8px 12px;
+                gap: 4px;
             }
-            
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
+
+            .floating-nav-item {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
             }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .profile-name {
-                display: none;
-            }
-            
-            .dashboard-header h1 {
-                font-size: 2rem;
-            }
-            
-            .dashboard-header p {
-                font-size: 1rem;
+
+            .fab-primary {
+                width: 48px;
+                height: 48px;
             }
         }
 
-        @media (max-width: 480px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .container {
-                padding: 0 16px;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
-            }
-            
-            .view-all {
-                align-self: flex-end;
-            }
-            
-            .dashboard-header h1 {
-                font-size: 1.75rem;
-            }
-        }
-
-        /* NEW: Advanced Features */
-
-        /* Voice Assistant */
-        .voice-assistant {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--info-color), var(--accent-color));
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: var(--shadow-lg);
-            cursor: pointer;
-            transition: var(--transition);
-            z-index: 100;
-            border: none;
-        }
-
-        .voice-assistant:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .voice-assistant.listening {
-            animation: pulse 1.5s infinite;
-            background: linear-gradient(135deg, var(--danger-color), var(--warning-color));
-        }
-
-        /* Interactive Map */
-        .map-container {
-            height: 400px;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            margin-bottom: 50px;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-        }
-
-        .map-overlay {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radius);
-            padding: 16px;
-            box-shadow: var(--shadow);
-            z-index: 10;
-        }
-
-        /* AI Recommendations */
-        .ai-recommendations {
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            border-radius: var(--radius-lg);
-            padding: 30px;
-            color: white;
-            margin-bottom: 50px;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .ai-recommendations::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
-        }
-
-        .ai-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .ai-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 16px;
-            font-size: 1.3rem;
-        }
-
-        .ai-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .recommendation-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .recommendation-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radius);
-            padding: 20px;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .recommendation-card:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-5px);
-        }
-
-        /* Emergency Alert System */
-        .emergency-alert {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(90deg, var(--danger-color), var(--warning-color));
-            color: white;
-            padding: 15px;
-            text-align: center;
-            z-index: 2000;
-            transform: translateY(-100%);
-            transition: transform 0.5s ease;
-        }
-
-        .emergency-alert.active {
-            transform: translateY(0);
-        }
-
-        .alert-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .alert-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-        }
-
-        /* Personal Assistant */
-        .assistant-panel {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 350px;
-            background: var(--card-background);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-xl);
-            z-index: 1000;
-            transform: translateY(20px) scale(0.9);
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            border: 1px solid var(--border-color);
-        }
-
-        .assistant-panel.active {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .assistant-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .assistant-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .assistant-close {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .assistant-body {
-            padding: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .assistant-message {
-            margin-bottom: 15px;
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            background: var(--background-color);
-            font-size: 0.9rem;
-        }
-
-        .assistant-message.user {
-            background: var(--primary-color);
-            color: white;
-            margin-left: 40px;
-        }
-
-        .assistant-input {
-            display: flex;
-            padding: 20px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .assistant-input input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            background: var(--background-color);
-            color: var(--text-primary);
-        }
-
-        .assistant-send {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--radius);
-            padding: 0 20px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        /* Data Visualization Charts */
-        .chart-container {
-            background: var(--card-background);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .chart-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .chart-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chart-action {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .chart {
-            height: 300px;
-            position: relative;
-        }
-
-        /* NEW: Accessibility Features */
-        .accessibility-panel {
-            position: fixed;
-            top: 50%;
-            right: 0;
-            transform: translateY(-50%);
-            background: var(--card-background);
-            border-radius: var(--radius) 0 0 var(--radius);
-            box-shadow: var(--shadow-lg);
-            z-index: 100;
-            padding: 15px 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .accessibility-btn {
-            background: none;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .accessibility-btn:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        /* NEW: AR/VR Integration */
-        .ar-view {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--background-color);
-            z-index: 3000;
-            display: none;
-        }
-
-        .ar-view.active {
-            display: block;
-        }
-
-        .ar-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
-        }
-
-        .ar-close {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .ar-content {
+        /* Lottie Animation Container */
+        .lottie-container {
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .ar-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .ar-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* NEW: Advanced Notifications */
-        .notification-panel {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 400px;
-            height: 100%;
-            background: var(--card-background);
-            box-shadow: var(--shadow-xl);
-            z-index: 2000;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .notification-panel.active {
-            transform: translateX(0);
-        }
-
-        .notification-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .notification-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .notification-close {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .notification-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .notification-item {
-            padding: 16px;
-            border-radius: var(--radius);
-            background: var(--background-color);
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .notification-item:hover {
-            background: rgba(37, 99, 235, 0.05);
-        }
-
-        .notification-item.unread {
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .notification-time {
-            font-size: 0.8rem;
-            color: var(--text-tertiary);
-            margin-top: 5px;
-        }
-
-        /* NEW: Advanced Loading States */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--background-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 5000;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-
-        .loading-text {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-        }
-
-        .loading-progress {
-            width: 200px;
-            height: 4px;
-            background: var(--border-color);
-            border-radius: 2px;
-            margin-top: 20px;
-            overflow: hidden;
-        }
-
-        .loading-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* NEW: Advanced Error States */
-        .error-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .error-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: rgba(239, 68, 68, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--danger-color);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .error-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .error-description {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            max-width: 400px;
-        }
-
-        .error-action {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 24px;
-            cursor: pointer;
-            font-weight: 500;
         }
     </style>
 </head>
-<body>
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-logo">
-            <i class="fas fa-city"></i>
-        </div>
-        <div class="loading-text">Initializing ORBION</div>
-        <div class="loading-progress">
-            <div class="loading-progress-bar" id="loadingProgress"></div>
-        </div>
-    </div>
-
-    <!-- Emergency Alert -->
-    <div class="emergency-alert" id="emergencyAlert">
-        <div class="alert-content">
-            <i class="fas fa-exclamation-triangle"></i>
-            <span>Severe weather alert: Thunderstorm warning until 8:00 PM</span>
-            <button class="alert-close" id="alertClose">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Accessibility Panel -->
-    <div class="accessibility-panel">
-        <button class="accessibility-btn" id="fontIncrease" title="Increase Font Size">
-            <i class="fas fa-text-height"></i>
-        </button>
-        <button class="accessibility-btn" id="highContrast" title="High Contrast">
-            <i class="fas fa-adjust"></i>
-        </button>
-        <button class="accessibility-btn" id="screenReader" title="Screen Reader">
-            <i class="fas fa-assistive-listening-systems"></i>
-        </button>
-    </div>
-
-    <header>
-        <div class="container nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-city"></i>
-                </div>
-                <span>ORBION</span>
-            </a>
-            
-            <div class="search-container">
-                <input type="text" class="search-bar" placeholder="Search services, locations, or information...">
-                <div class="search-icon" id="searchTrigger">
-                    <i class="fas fa-search"></i>
+<body class="bg-zinc-50 text-zinc-900 overflow-hidden">
+    <div class="flex h-screen">
+        <!-- SIDEBAR -->
+        <div class="w-72 bg-white border-r border-zinc-100 flex flex-col">
+            <div class="p-6 border-b">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-inner">O</div>
+                    <div>
+                        <span class="logo-font text-3xl font-semibold tracking-tighter">ORBION</span>
+                        <div class="text-[10px] text-zinc-500 -mt-1 font-medium">SMART CITY OS</div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="nav-actions">
-                <button class="nav-btn" id="notificationTrigger">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-                <button class="nav-btn theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <div class="profile">
-                    <div class="profile-img">IS</div>
-                    <span class="profile-name">Ibrahim Shaik</span>
+
+            <div class="flex-1 px-3 py-6 overflow-y-auto">
+                <nav class="space-y-1">
+                    <a href="#" class="nav-active nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm">
+                        <i class="fa-solid fa-house w-5"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" onclick="switchTab(1)" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm text-zinc-600 hover:bg-zinc-50 transition-colors">
+                        <i class="fa-solid fa-car w-5"></i>
+                        <span>Move</span>
+                    </a>
+                    <a href="#" onclick="switchTab(2)" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm text-zinc-600 hover:bg-zinc-50 transition-colors">
+                        <i class="fa-solid fa-bolt-lightning w-5"></i>
+                        <span>Live City</span>
+                    </a>
+                    <a href="#" onclick="switchTab(3)" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm text-zinc-600 hover:bg-zinc-50 transition-colors">
+                        <i class="fa-solid fa-hand-holding-dollar w-5"></i>
+                        <span>Services</span>
+                    </a>
+                    <a href="#" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm text-zinc-600 hover:bg-zinc-50 transition-colors">
+                        <i class="fa-solid fa-compass w-5"></i>
+                        <span>Explore</span>
+                    </a>
+                    <a href="#" class="nav-link flex items-center gap-3 px-5 py-3.5 rounded-3xl text-sm text-zinc-600 hover:bg-zinc-50 transition-colors">
+                        <i class="fa-solid fa-user w-5"></i>
+                        <span>Profile</span>
+                    </a>
+                </nav>
+
+                <!-- Quick Info -->
+                <div class="mt-10 px-5">
+                    <div id="weather-card" class="glass border border-zinc-100 rounded-3xl p-5 shadow-sm cursor-pointer hover:scale-[1.02] transition-transform">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="text-sm">Metroside</div>
+                                <div id="temp" class="text-5xl font-semibold mt-1 leading-none">28°</div>
+                                <div id="condition" class="text-zinc-500">Partly Cloudy</div>
+                            </div>
+                            <div id="weather-icon" class="text-7xl">⛅</div>
+                        </div>
+                        <div class="mt-6 text-xs flex items-center justify-between">
+                            <div>AQI <span id="aqi" class="font-semibold text-emerald-600">42</span></div>
+                            <div id="aqi-status" class="text-emerald-600 font-medium">Good</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </header>
 
-    <!-- Advanced Search Panel -->
-    <div class="search-panel" id="searchPanel">
-        <button class="search-panel-close" id="searchPanelClose">
-            <i class="fas fa-times"></i>
-        </button>
-        <input type="text" class="search-panel-input" placeholder="What are you looking for?">
-        <div class="search-results">
-            <div class="search-result-item">
-                <h4>Public Transportation</h4>
-                <p>Bus schedules, train routes, and real-time updates</p>
-            </div>
-            <div class="search-result-item">
-                <h4>Utility Payments</h4>
-                <p>Pay your electricity, water, and gas bills</p>
-            </div>
-            <div class="search-result-item">
-                <h4>Event Tickets</h4>
-                <p>Concerts, sports, and cultural events</p>
-            </div>
-            <div class="search-result-item">
-                <h4>Parking Information</h4>
-                <p>Find available parking spots across the city</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Notification Panel -->
-    <div class="notification-panel" id="notificationPanel">
-        <div class="notification-header">
-            <h3 class="notification-title">Notifications</h3>
-            <button class="notification-close" id="notificationClose">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="notification-body">
-            <div class="notification-item unread">
-                <h4>Traffic Alert</h4>
-                <p>Accident reported on Main Street. Expect delays.</p>
-                <div class="notification-time">2 minutes ago</div>
-            </div>
-            <div class="notification-item">
-                <h4>Weather Update</h4>
-                <p>Rain expected this evening. Don't forget your umbrella!</p>
-                <div class="notification-time">1 hour ago</div>
-            </div>
-            <div class="notification-item">
-                <h4>Payment Reminder</h4>
-                <p>Your electricity bill is due in 3 days.</p>
-                <div class="notification-time">5 hours ago</div>
-            </div>
-            <div class="notification-item">
-                <h4>Event Recommendation</h4>
-                <p>Jazz concert in Central Park this weekend.</p>
-                <div class="notification-time">1 day ago</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Personal Assistant -->
-    <div class="assistant-panel" id="assistantPanel">
-        <div class="assistant-header">
-            <h3 class="assistant-title">ORBION Assistant</h3>
-            <button class="assistant-close" id="assistantClose">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="assistant-body" id="assistantMessages">
-            <div class="assistant-message">
-                Hi! I'm your ORBION assistant. How can I help you today?
-            </div>
-        </div>
-        <div class="assistant-input">
-            <input type="text" id="assistantInput" placeholder="Ask me anything...">
-            <button class="assistant-send" id="assistantSend">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- AR View -->
-    <div class="ar-view" id="arView">
-        <div class="ar-header">
-            <button class="ar-close" id="arClose">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="ar-content">
-            <div id="arScene">
-                <!-- AR content would be rendered here -->
-                <div style="text-align: center; color: white;">
-                    <h2>AR View</h2>
-                    <p>Point your camera at city landmarks for information</p>
-                </div>
-            </div>
-        </div>
-        <div class="ar-overlay">
-            <button class="ar-btn">
-                <i class="fas fa-info-circle"></i>
-                <span>Info</span>
-            </button>
-            <button class="ar-btn">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Navigate</span>
-            </button>
-            <button class="ar-btn">
-                <i class="fas fa-camera"></i>
-                <span>Capture</span>
-            </button>
-        </div>
-    </div>
-
-    <main class="container">
-        <div class="dashboard-header fade-in">
-            <h1 id="mainTitle">Welcome to ORBION</h1>
-            <p>Your unified dashboard for city services and information</p>
-        </div>
-
-        <div class="quick-actions">
-            <div class="action-btn" id="quickPay">
-                <i class="fas fa-bolt"></i>
-                <span>Quick Pay</span>
-            </div>
-            <div class="action-btn" id="nearMe">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Near Me</span>
-            </div>
-            <div class="action-btn" id="myBookings">
-                <i class="fas fa-calendar-alt"></i>
-                <span>My Bookings</span>
-            </div>
-            <div class="action-btn" id="favorites">
-                <i class="fas fa-star"></i>
-                <span>Favorites</span>
-            </div>
-            <div class="action-btn" id="alerts">
-                <i class="fas fa-bell"></i>
-                <span>Alerts</span>
-            </div>
-            <div class="action-btn" id="recent">
-                <i class="fas fa-history"></i>
-                <span>Recent</span>
-            </div>
-            <div class="action-btn" id="arMode">
-                <i class="fas fa-vr-cardboard"></i>
-                <span>AR Mode</span>
-            </div>
-        </div>
-
-        <!-- AI Recommendations -->
-        <section class="ai-recommendations fade-in">
-            <div class="ai-header">
-                <div class="ai-icon">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <h2 class="ai-title">AI Recommendations</h2>
-            </div>
-            <div class="recommendation-cards">
-                <div class="recommendation-card">
-                    <h3>Try the new bike trail</h3>
-                    <p>Based on your activity, we think you'll love the new riverside bike path</p>
-                </div>
-                <div class="recommendation-card">
-                    <h3>Weekend event</h3>
-                    <p>Food festival downtown this weekend - you've shown interest in similar events</p>
-                </div>
-                <div class="recommendation-card">
-                    <h3>Traffic alternative</h3>
-                    <p>Your usual route has heavy traffic. Try the expressway for faster travel</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Interactive Map -->
-        <section class="map-container fade-in">
-            <div class="map-overlay">
-                <button class="action-btn">
-                    <i class="fas fa-layer-group"></i>
-                    <span>Layers</span>
-                </button>
-            </div>
-            <div id="map" style="width: 100%; height: 100%; background: var(--border-light); display: flex; align-items: center; justify-content: center;">
-                <div style="text-align: center;">
-                    <i class="fas fa-map" style="font-size: 3rem; color: var(--text-tertiary); margin-bottom: 10px;"></i>
-                    <p style="color: var(--text-secondary);">Interactive City Map</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Data Visualization -->
-        <section class="chart-container fade-in">
-            <div class="chart-header">
-                <h3 class="chart-title">Weekly Energy Consumption</h3>
-                <div class="chart-actions">
-                    <button class="chart-action">
-                        <i class="fas fa-download"></i>
-                    </button>
-                    <button class="chart-action">
-                        <i class="fas fa-expand"></i>
+                <div class="px-5 mt-auto pt-8">
+                    <button onclick="showHelp()" 
+                            class="w-full flex items-center justify-center gap-2.5 bg-zinc-100 hover:bg-zinc-200 py-4 rounded-3xl text-sm font-medium transition-colors">
+                        <i class="fa-solid fa-circle-question"></i>
+                        Help &amp; Support
                     </button>
                 </div>
             </div>
-            <div class="chart">
-                <div style="width: 100%; height: 100%; background: var(--border-light); display: flex; align-items: center; justify-content: center;">
-                    <div style="text-align: center;">
-                        <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--text-tertiary); margin-bottom: 10px;"></i>
-                        <p style="color: var(--text-secondary);">Energy Consumption Chart</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="city-intelligence">
-            <div class="intel-card fade-in stagger-item">
-                <div class="intel-header">
-                    <div class="intel-icon weather-icon">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <div class="intel-title">Weather</div>
-                </div>
-                <div class="intel-value">72°F</div>
-                <div class="intel-details">Partly cloudy • Feels like 75°F</div>
-                <div class="intel-trend trend-up">
-                    <i class="fas fa-arrow-up"></i>
-                    <span>2° warmer than yesterday</span>
-                </div>
-            </div>
-            
-            <div class="intel-card fade-in stagger-item">
-                <div class="intel-header">
-                    <div class="intel-icon aqi-icon">
-                        <i class="fas fa-wind"></i>
-                    </div>
-                    <div class="intel-title">Air Quality</div>
-                </div>
-                <div class="intel-value">42 AQI</div>
-                <div class="intel-details">Good • PM2.5: 12μg/m³</div>
-                <div class="intel-trend trend-down">
-                    <i class="fas fa-arrow-down"></i>
-                    <span>5 points better than yesterday</span>
-                </div>
-            </div>
-            
-            <div class="intel-card fade-in stagger-item">
-                <div class="intel-header">
-                    <div class="intel-icon traffic-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <div class="intel-title">Traffic</div>
-                </div>
-                <div class="intel-value">Moderate</div>
-                <div class="intel-details">15 min to downtown • 2 incidents</div>
-                <div class="intel-trend trend-up">
-                    <i class="fas fa-arrow-up"></i>
-                    <span>5 min longer than usual</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="services-section">
-            <div class="section-header">
-                <h2 class="section-title">Transportation</h2>
-                <a href="#" class="view-all">
-                    <span>View All</span>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-train"></i>
-                    </div>
-                    <h3 class="service-title">Trains</h3>
-                    <p class="service-desc">Book train tickets and check schedules</p>
-                </div>
-                
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-bus"></i>
-                    </div>
-                    <h3 class="service-title">Buses</h3>
-                    <p class="service-desc">Find bus routes and real-time arrivals</p>
-                </div>
-                
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-taxi"></i>
-                    </div>
-                    <h3 class="service-title">Taxis & Rideshare</h3>
-                    <p class="service-desc">Book rides across the city</p>
-                </div>
-                
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-bicycle"></i>
-                    </div>
-                    <h3 class="service-title">Bike Sharing</h3>
-                    <p class="service-desc">Rent bikes from stations nearby</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="services-section">
-            <div class="section-header">
-                <h2 class="section-title">Entertainment & Leisure</h2>
-                <a href="#" class="view-all">
-                    <span>View All</span>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-film"></i>
-                    </div>
-                    <h3 class="service-title">Movies</h3>
-                    <p class="service-desc">Book tickets and check showtimes</p>
-                </div>
-                
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-hotel"></i>
-                    </div>
-                    <h3 class="service-title">Hotels</h3>
-                    <p class="service-desc">Find and book accommodations</p>
-                </div>
-                
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <h3 class="service-title">Restaurants</h3>
-                    <p class="service-desc">Discover and reserve dining</p>
-                </div>
-                
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-ticket-alt"></i>
-                    </div>
-                    <h3 class="service-title">Events</h3>
-                    <p class="service-desc">Find concerts, shows, and more</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="services-section">
-            <div class="section-header">
-                <h2 class="section-title">City Services</h2>
-                <a href="#" class="view-all">
-                    <span>View All</span>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="service-title">Utilities</h3>
-                    <p class="service-desc">Pay bills and track usage</p>
-                </div>
-                
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-recycle"></i>
-                    </div>
-                    <h3 class="service-title">Waste Management</h3>
-                    <p class="service-desc">Schedule pickups and recycling</p>
-                </div>
-                
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3 class="service-title">Permits</h3>
-                    <p class="service-desc">Apply for city permits and licenses</p>
-                </div>
-                
-                <div class="service-card fade-in stagger-item">
-                    <div class="service-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3 class="service-title">Feedback</h3>
-                    <p class="service-desc">Report issues and share ideas</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Error State Example (hidden by default) -->
-        <div class="error-state" id="errorState" style="display: none;">
-            <div class="error-icon">
-                <i class="fas fa-exclamation-circle"></i>
-            </div>
-            <h2 class="error-title">Service Unavailable</h2>
-            <p class="error-description">We're experiencing technical difficulties. Please try again later.</p>
-            <button class="error-action" id="retryButton">Retry</button>
         </div>
-    </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column footer-about">
-                    <h3>ORBION</h3>
-                    <p>ORBION is a smart city platform designed to simplify urban living by integrating transportation, utilities, entertainment, and civic services into one seamless experience.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
+        <!-- MAIN AREA -->
+        <div class="flex-1 flex flex-col">
+            <!-- TOP NAV -->
+            <header class="h-16 bg-white border-b border-zinc-100 flex items-center px-8 justify-between shadow-sm">
+                <div class="flex-1 max-w-lg">
+                    <div class="relative">
+                        <input id="searchInput" 
+                               type="text" 
+                               placeholder="Search places, services, routes..." 
+                               class="input-focus w-full bg-zinc-100 border border-transparent focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-200 rounded-3xl py-3 pl-12 pr-4 text-sm transition-all">
+                        <div class="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="footer-column">
-                    <h3>Services</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Transportation</a></li>
-                        <li><a href="#">Entertainment</a></li>
-                        <li><a href="#">Utilities</a></li>
-                        <li><a href="#">Emergency</a></li>
-                        <li><a href="#">Healthcare</a></li>
-                    </ul>
+
+                <div class="flex items-center gap-7 ml-8">
+                    <div onclick="toggleDarkMode()" class="cursor-pointer text-zinc-500 hover:text-zinc-900 transition-colors">
+                        <i id="theme-icon" class="fa-solid fa-moon text-xl"></i>
+                    </div>
+                    
+                    <div class="relative cursor-pointer group" onclick="toggleNotifications()">
+                        <i class="fa-solid fa-bell text-2xl text-zinc-600 group-hover:text-zinc-900 transition-colors"></i>
+                        <div id="notif-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-medium w-4 h-4 rounded-full flex items-center justify-center animate-pulse">3</div>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-8 h-8 bg-zinc-300 rounded-2xl overflow-hidden border-2 border-white shadow group-hover:shadow-md transition-shadow">
+                            <img src="https://picsum.photos/id/64/128/128" alt="Aarav" class="w-full h-full object-cover">
+                        </div>
+                        <div class="text-sm">
+                            <div class="font-semibold text-zinc-900">Aarav Sharma</div>
+                            <div class="text-xs text-emerald-500 -mt-0.5">Online</div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Status</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Partners</a></li>
-                    </ul>
+            </header>
+
+            <!-- CONTENT -->
+            <div class="flex-1 overflow-auto p-8 pb-4">
+                <div class="max-w-screen-2xl mx-auto">
+                    <div class="flex gap-8">
+                        <!-- LEFT COLUMN -->
+                        <div class="flex-1 space-y-8">
+                            <!-- Greeting -->
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <h1 class="text-4xl font-semibold">Good morning, Aarav 👋</h1>
+                                    <p id="greeting-subtitle" class="text-zinc-500 mt-1 text-lg">Metroside is calm and moving smoothly.</p>
+                                </div>
+                                <div class="text-right text-sm">
+                                    <div class="text-zinc-400">Tuesday, July 21</div>
+                                    <div id="current-time" class="font-mono text-xl font-medium text-zinc-900"></div>
+                                </div>
+                            </div>
+
+                            <!-- Hero City View -->
+                            <div id="hero-bg" class="city-bg h-[380px] rounded-3xl relative shadow-2xl overflow-hidden">
+                                <!-- Status tags -->
+                                <div class="absolute top-8 left-8 glass px-6 py-4 rounded-3xl shadow flex items-center gap-3">
+                                    <div class="w-3 h-3 bg-emerald-500 rounded-full live-dot"></div>
+                                    <div>
+                                        <div class="font-semibold text-sm">All systems</div>
+                                        <div class="text-emerald-600 text-xs -mt-0.5">Normal • 99.8% uptime</div>
+                                    </div>
+                                </div>
+
+                                <div class="absolute top-8 right-48 glass px-6 py-4 rounded-3xl shadow text-sm">
+                                    <span class="font-medium">Metro Line 2</span>
+                                    <span id="metro-status" class="ml-2 text-emerald-500 font-medium">On time</span>
+                                </div>
+
+                                <div class="absolute bottom-24 left-8 glass px-6 py-4 rounded-3xl shadow flex items-center gap-3">
+                                    <span class="text-2xl">🚦</span>
+                                    <div>
+                                        <div class="font-medium">Traffic</div>
+                                        <div id="traffic-status" class="text-emerald-500 text-xs">Smooth • 12% below avg</div>
+                                    </div>
+                                </div>
+
+                                <div class="absolute bottom-8 right-8 glass px-6 py-4 rounded-3xl shadow text-sm flex items-center gap-3">
+                                    <span>🌬️</span>
+                                    <div>
+                                        <div class="font-medium">Air Quality</div>
+                                        <div id="air-status" class="text-emerald-500 text-xs">Good • 38 AQI</div>
+                                    </div>
+                                </div>
+
+                                <button onclick="viewLiveMap()" 
+                                        class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white text-zinc-800 px-8 py-3.5 rounded-3xl flex items-center gap-3 shadow-xl hover:shadow-2xl transition-all active:scale-95 font-medium">
+                                    <i class="fa-solid fa-map-location-dot"></i>
+                                    <span>View live map</span>
+                                </button>
+
+                                <!-- Floating particles / indicators -->
+                                <div class="absolute top-1/3 right-1/4 w-3 h-3 bg-sky-400 rounded-full animate-ping opacity-60"></div>
+                                <div class="absolute top-2/3 left-1/3 w-2 h-2 bg-amber-400 rounded-full animate-ping opacity-40" style="animation-delay: 800ms"></div>
+                            </div>
+
+                            <!-- Quick Actions -->
+                            <div>
+                                <h2 class="text-xl font-semibold mb-5 flex items-center gap-2">
+                                    What do you want to do today?
+                                    <span class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-3xl font-medium">4 suggestions</span>
+                                </h2>
+                                <div class="grid grid-cols-4 gap-5">
+                                    <div onclick="actionClick(this)" class="card-hover group bg-white rounded-3xl p-5 cursor-pointer border border-transparent hover:border-indigo-200">
+                                        <div class="h-40 bg-gradient-to-br from-blue-50 to-sky-100 rounded-2xl flex items-center justify-center mb-6 transition-transform">
+                                            <img src="https://picsum.photos/id/201/160/110" class="h-28 drop-shadow-md">
+                                        </div>
+                                        <div class="font-semibold">Plan a trip</div>
+                                        <div class="text-xs text-zinc-500">Bus • Metro • Auto</div>
+                                    </div>
+                                    
+                                    <div onclick="actionClick(this)" class="card-hover group bg-white rounded-3xl p-5 cursor-pointer border border-transparent hover:border-indigo-200">
+                                        <div class="h-40 bg-gradient-to-br from-emerald-50 to-cyan-100 rounded-2xl flex items-center justify-center mb-6 transition-transform">
+                                            <i class="fa-solid fa-credit-card text-7xl text-cyan-400"></i>
+                                        </div>
+                                        <div class="font-semibold">Pay &amp; Top up</div>
+                                        <div class="text-xs text-zinc-500">Bills, Metro, Parking</div>
+                                    </div>
+                                    
+                                    <div onclick="actionClick(this)" class="card-hover group bg-white rounded-3xl p-5 cursor-pointer border border-transparent hover:border-indigo-200">
+                                        <div class="h-40 bg-gradient-to-br from-orange-50 to-amber-100 rounded-2xl flex items-center justify-center mb-6 transition-transform">
+                                            <i class="fa-solid fa-triangle-exclamation text-7xl text-orange-400"></i>
+                                        </div>
+                                        <div class="font-semibold">Report an issue</div>
+                                        <div class="text-xs text-zinc-500">We'll take care</div>
+                                    </div>
+                                    
+                                    <div onclick="actionClick(this)" class="card-hover group bg-white rounded-3xl p-5 cursor-pointer border border-transparent hover:border-indigo-200">
+                                        <div class="h-40 bg-gradient-to-br from-purple-50 to-fuchsia-100 rounded-2xl flex items-center justify-center mb-6 transition-transform">
+                                            <span class="text-7xl">🎡</span>
+                                        </div>
+                                        <div class="font-semibold">Explore events</div>
+                                        <div class="text-xs text-zinc-500">Near you today</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- For You -->
+                            <div>
+                                <h2 class="text-xl font-semibold mb-5">For you</h2>
+                                <div class="grid grid-cols-3 gap-5">
+                                    <!-- Next Trip -->
+                                    <div class="card-hover bg-white rounded-3xl p-6 border border-zinc-100">
+                                        <div class="flex justify-between">
+                                            <div>
+                                                <div class="uppercase text-xs text-zinc-400 tracking-wider font-semibold">Your next trip</div>
+                                                <div class="font-semibold text-lg mt-2">Office • MG Tower</div>
+                                                <div class="text-sm text-zinc-500">9:15 AM • Metro Line 2</div>
+                                            </div>
+                                            <div class="text-4xl">🚄</div>
+                                        </div>
+                                        <div class="mt-8 flex items-center gap-4 bg-gradient-to-r from-zinc-50 to-zinc-100 rounded-2xl p-4">
+                                            <div class="text-3xl">🚇</div>
+                                            <div class="text-xs flex-1">
+                                                <div class="font-medium text-zinc-900">In <span id="next-trip-time" class="text-emerald-600">6</span> min • Platform 2</div>
+                                                <div class="text-emerald-500 font-medium">9:12 AM - 9:30 AM</div>
+                                            </div>
+                                        </div>
+                                        <button onclick="viewTrip()" class="mt-6 w-full py-4 border border-zinc-200 rounded-3xl text-sm font-medium hover:bg-zinc-50 transition-colors btn-primary">View full route</button>
+                                    </div>
+                                    
+                                    <!-- Alert -->
+                                    <div class="card-hover bg-white rounded-3xl p-6 border border-amber-100">
+                                        <div class="uppercase text-xs text-amber-500 font-medium tracking-wider">Nearby alert</div>
+                                        <div class="mt-3 font-semibold text-zinc-900">Water maintenance on MG Road</div>
+                                        <div class="text-xs text-zinc-500 mt-1">10:00 AM – 2:00 PM • Minor disruption</div>
+                                        <button onclick="viewAlert()" class="mt-10 w-full py-3.5 bg-amber-50 text-amber-600 rounded-3xl text-sm font-medium hover:bg-amber-100 transition-colors btn-primary">View details</button>
+                                    </div>
+                                    
+                                    <!-- Update -->
+                                    <div class="card-hover bg-white rounded-3xl p-6 border border-emerald-100 flex flex-col">
+                                        <div class="uppercase text-xs text-emerald-500 font-medium tracking-wider">Community event</div>
+                                        <div class="mt-2 font-semibold leading-tight text-zinc-900">Tree plantation drive at Central Park</div>
+                                        <div class="text-xs text-zinc-500 mt-6">This Sunday • 8 AM</div>
+                                        <div class="mt-auto pt-8">
+                                            <div class="h-32 bg-emerald-50 rounded-2xl flex items-center justify-center text-7xl">🌱</div>
+                                        </div>
+                                        <button onclick="joinEvent()" class="mt-4 w-full py-3.5 border border-emerald-200 text-emerald-700 rounded-3xl text-sm font-medium hover:bg-emerald-50 transition-colors btn-primary">Join • 142 going</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT COLUMN -->
+                        <div class="w-96 space-y-6">
+                            <!-- Live City -->
+                            <div class="card-hover bg-white rounded-3xl overflow-hidden border border-zinc-100">
+                                <div class="px-6 py-5 border-b border-zinc-100 flex justify-between items-center bg-gradient-to-r from-zinc-50 to-transparent">
+                                    <div>
+                                        <div class="font-semibold text-zinc-900">Live City Pulse</div>
+                                        <div class="text-xs text-zinc-500">Real-time • Updated just now</div>
+                                    </div>
+                                    <div onclick="refreshLiveData()" class="text-xs bg-emerald-100 hover:bg-emerald-200 cursor-pointer text-emerald-700 px-3 py-1.5 rounded-3xl font-medium flex items-center gap-1 transition-colors">
+                                        <i class="fa-solid fa-arrows-rotate"></i>
+                                        <span>Refresh</span>
+                                    </div>
+                                </div>
+                                <div id="live-map" class="map-bg h-64 relative">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                                    <!-- Dynamic traffic indicators -->
+                                    <div id="traffic-line-1" class="absolute top-10 left-12 w-40 h-px bg-gradient-to-r from-transparent via-red-400 to-transparent rotate-12 transition-all"></div>
+                                    <div id="traffic-line-2" class="absolute top-28 left-40 w-52 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent -rotate-12 transition-all"></div>
+                                </div>
+                                <div class="p-5 grid grid-cols-3 gap-2 text-xs">
+                                    <div onclick="showMetricDetail(0)" class="flex-1 py-3 bg-zinc-900 text-white rounded-2xl text-center font-medium cursor-pointer hover:bg-black transition-colors">Traffic</div>
+                                    <div onclick="showMetricDetail(1)" class="flex-1 py-3 hover:bg-zinc-100 rounded-2xl text-center cursor-pointer transition-colors">Transit</div>
+                                    <div onclick="showMetricDetail(2)" class="flex-1 py-3 hover:bg-zinc-100 rounded-2xl text-center cursor-pointer transition-colors">Energy</div>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Charts Section -->
+                            <div class="card-hover bg-white rounded-3xl p-6 border border-zinc-100 overflow-hidden">
+                                <div class="flex justify-between items-center mb-6">
+                                    <div>
+                                        <h3 class="font-semibold text-lg text-zinc-900">Live Analytics</h3>
+                                        <p class="text-xs text-zinc-500 mt-1">Real-time traffic & energy metrics</p>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button onclick="switchChartView('traffic')" class="text-xs px-3 py-2 bg-indigo-100 text-indigo-700 rounded-2xl font-medium">Traffic</button>
+                                        <button onclick="switchChartView('energy')" class="text-xs px-3 py-2 bg-zinc-100 text-zinc-700 rounded-2xl font-medium hover:bg-indigo-100 hover:text-indigo-700">Energy</button>
+                                    </div>
+                                </div>
+
+                                <div class="chart-container bg-gradient-to-br from-zinc-50 to-zinc-100/50 border border-zinc-150 rounded-2xl">
+                                    <canvas id="trafficChart"></canvas>
+                                </div>
+
+                                <!-- Chart Stats -->
+                                <div class="grid grid-cols-3 gap-3 mt-6">
+                                    <div class="metric-card bg-white">
+                                        <div class="text-xs text-zinc-500 mb-2">
+                                            <i class="fa-solid fa-car mr-1.5"></i>Average
+                                        </div>
+                                        <div class="text-2xl font-bold text-zinc-900 metric-value">68%</div>
+                                        <div class="text-xs text-emerald-600 mt-1">↓ 8% from avg</div>
+                                    </div>
+                                    <div class="metric-card bg-white">
+                                        <div class="text-xs text-zinc-500 mb-2">
+                                            <i class="fa-solid fa-bolt mr-1.5"></i>Capacity
+                                        </div>
+                                        <div class="text-2xl font-bold text-zinc-900 metric-value">45%</div>
+                                        <div class="text-xs text-amber-600 mt-1">↑ 3% from avg</div>
+                                    </div>
+                                    <div class="metric-card bg-white">
+                                        <div class="text-xs text-zinc-500 mb-2">
+                                            <i class="fa-solid fa-circle-check mr-1.5"></i>Status
+                                        </div>
+                                        <div class="text-lg font-bold text-emerald-600">Optimal</div>
+                                        <div class="text-xs text-zinc-500 mt-1">All systems</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Energy Chart -->
+                            <div id="energyChartContainer" class="hidden card-hover bg-white rounded-3xl p-6 border border-zinc-100 overflow-hidden">
+                                <div class="flex justify-between items-center mb-6">
+                                    <div>
+                                        <h3 class="font-semibold text-lg text-zinc-900">Energy Distribution</h3>
+                                        <p class="text-xs text-zinc-500 mt-1">City-wide power usage by sector</p>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button onclick="switchChartView('traffic')" class="text-xs px-3 py-2 bg-zinc-100 text-zinc-700 rounded-2xl font-medium hover:bg-indigo-100 hover:text-indigo-700">Traffic</button>
+                                        <button onclick="switchChartView('energy')" class="text-xs px-3 py-2 bg-indigo-100 text-indigo-700 rounded-2xl font-medium">Energy</button>
+                                    </div>
+                                </div>
+
+                                <div class="chart-container bg-gradient-to-br from-zinc-50 to-zinc-100/50 border border-zinc-150 rounded-2xl">
+                                    <canvas id="energyChart"></canvas>
+                                </div>
+
+                                <!-- Energy Stats -->
+                                <div class="grid grid-cols-3 gap-3 mt-6">
+                                    <div class="metric-card bg-white">
+                                        <div class="text-xs text-zinc-500 mb-2">
+                                            <i class="fa-solid fa-leaf mr-1.5"></i>Renewable
+                                        </div>
+                                        <div class="text-2xl font-bold text-emerald-600 metric-value">62%</div>
+                                        <div class="text-xs text-emerald-600 mt-1">↑ Green energy</div>
+                                    </div>
+                                    <div class="metric-card bg-white">
+                                        <div class="text-xs text-zinc-500 mb-2">
+                                            <i class="fa-solid fa-bolt mr-1.5"></i>Peak Demand
+                                        </div>
+                                        <div class="text-2xl font-bold text-zinc-900 metric-value">7.2 GW</div>
+                                        <div class="text-xs text-amber-600 mt-1">±2% variance</div>
+                                    </div>
+                                    <div class="metric-card bg-white">
+                                        <div class="text-xs text-zinc-500 mb-2">
+                                            <i class="fa-solid fa-zap mr-1.5"></i>Efficiency
+                                        </div>
+                                        <div class="text-2xl font-bold text-indigo-600 metric-value">91%</div>
+                                        <div class="text-xs text-indigo-600 mt-1">Distribution eff.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Plan Your Trip -->
+                            <div class="card-hover bg-white rounded-3xl p-6 border border-zinc-100">
+                                <div class="flex justify-between items-center">
+                                    <div class="font-semibold text-lg text-zinc-900">Plan your trip</div>
+                                    <button onclick="openTripModal()" class="text-xs text-indigo-600 hover:text-indigo-700 font-medium">Advanced</button>
+                                </div>
+                                
+                                <div class="mt-5 space-y-6">
+                                    <div class="flex gap-4">
+                                        <div class="flex-1">
+                                            <div class="text-xs text-zinc-400 mb-2 font-semibold">FROM</div>
+                                            <div class="bg-zinc-100 rounded-2xl p-4 text-sm font-medium text-zinc-900 hover:bg-zinc-150 transition-colors cursor-pointer">Current location (Home)</div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="text-xs text-zinc-400 mb-2 font-semibold">TO</div>
+                                            <div class="bg-zinc-100 rounded-2xl p-4 text-sm font-medium text-zinc-900 flex justify-between items-center hover:bg-zinc-150 transition-colors cursor-pointer">
+                                                Office
+                                                <i class="fa-solid fa-microphone text-zinc-400"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 grid grid-cols-4 gap-3 text-center text-[10px]">
+                                    <div onclick="selectTransport(0)" class="transport-option bg-indigo-50 hover:bg-indigo-100 rounded-2xl py-4 transition-all cursor-pointer border-2 border-transparent">
+                                        <div class="text-3xl">🚇</div>
+                                        <div class="font-medium mt-2 text-zinc-900">Metro</div>
+                                        <div class="text-emerald-500 font-semibold">16 min</div>
+                                    </div>
+                                    <div onclick="selectTransport(1)" class="transport-option bg-zinc-50 hover:bg-zinc-100 rounded-2xl py-4 transition-all cursor-pointer">
+                                        <div class="text-3xl">🚌</div>
+                                        <div class="font-medium mt-2 text-zinc-900">Bus</div>
+                                        <div class="text-zinc-400">28 min</div>
+                                    </div>
+                                    <div onclick="selectTransport(2)" class="transport-option bg-zinc-50 hover:bg-zinc-100 rounded-2xl py-4 transition-all cursor-pointer">
+                                        <div class="text-3xl">🛺</div>
+                                        <div class="font-medium mt-2 text-zinc-900">Auto</div>
+                                        <div class="text-zinc-400">23 min</div>
+                                    </div>
+                                    <div onclick="selectTransport(3)" class="transport-option bg-zinc-50 hover:bg-zinc-100 rounded-2xl py-4 transition-all cursor-pointer">
+                                        <div class="text-3xl">🚶</div>
+                                        <div class="font-medium mt-2 text-zinc-900">Walk</div>
+                                        <div class="text-zinc-400">52 min</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Services -->
+                            <div class="card-hover bg-white rounded-3xl p-6 border border-zinc-100">
+                                <div class="font-semibold mb-5 text-zinc-900 flex justify-between">
+                                    <span>Service Centre</span>
+                                    <span class="text-xs bg-zinc-100 px-3 py-1 rounded-3xl">12 available</span>
+                                </div>
+                                <input type="text" id="service-search" placeholder="Search services..." 
+                                       class="input-focus w-full bg-zinc-100 border border-transparent focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-200 rounded-3xl px-5 py-3 text-sm transition-all">
+                                
+                                <div id="services-grid" class="mt-8 grid grid-cols-3 gap-4 text-xs">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="copyright">
-                &copy; 2025 ORBION. All rights reserved.
+
+            <!-- BOTTOM NAV -->
+            <nav class="h-20 border-t border-zinc-100 bg-white flex items-center px-12 text-sm z-10 shadow-2xl shadow-black/5">
+                <div class="flex-1 flex justify-between items-center max-w-3xl mx-auto">
+                    <a href="#" class="flex flex-col items-center text-indigo-600 hover:text-indigo-700 transition-colors">
+                        <i class="fa-solid fa-house text-3xl"></i>
+                        <span class="text-[10px] mt-1 font-medium">Home</span>
+                    </a>
+                    <a href="#" onclick="switchTab(1)" class="flex flex-col items-center text-zinc-400 hover:text-zinc-600 transition-colors">
+                        <i class="fa-solid fa-route text-3xl"></i>
+                        <span class="text-[10px] mt-1 font-medium">Move</span>
+                    </a>
+                    <div class="w-16"></div>
+                    <a href="#" onclick="switchTab(3)" class="flex flex-col items-center text-zinc-400 hover:text-zinc-600 transition-colors">
+                        <i class="fa-solid fa-hand-holding-dollar text-3xl"></i>
+                        <span class="text-[10px] mt-1 font-medium">Services</span>
+                    </a>
+                    <a href="#" class="flex flex-col items-center text-zinc-400 hover:text-zinc-600 transition-colors">
+                        <i class="fa-solid fa-user text-3xl"></i>
+                        <span class="text-[10px] mt-1 font-medium">Profile</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Floating Bottom Navigation -->
+            <div class="floating-nav" id="floatingNav">
+                <div class="floating-nav-item active" onclick="switchFloatingTab(0)">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="floating-nav-item-label">Home</span>
+                </div>
+                <div class="floating-nav-item" onclick="switchFloatingTab(1)">
+                    <i class="fa-solid fa-traffic-light"></i>
+                    <span class="floating-nav-item-label">Traffic</span>
+                </div>
+                <div class="floating-nav-item" onclick="switchFloatingTab(2)">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span class="floating-nav-item-label">Energy</span>
+                </div>
+                <button onclick="openVoiceAssistant()" class="floating-nav-item fab-primary">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                <div class="floating-nav-item" onclick="switchFloatingTab(3)">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="floating-nav-item-label">Analytics</span>
+                </div>
+                <div class="floating-nav-item" onclick="switchFloatingTab(4)">
+                    <i class="fa-solid fa-cog"></i>
+                    <span class="floating-nav-item-label">Settings</span>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <!-- Voice Assistant -->
-    <button class="voice-assistant" id="voiceAssistant">
-        <i class="fas fa-microphone"></i>
-    </button>
+    <!-- Voice Assistant Overlay -->
+    <div id="voiceOverlay" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="bg-white rounded-3xl w-full max-w-lg mx-4 p-10 shadow-2xl">
+            <div class="text-center">
+                <div class="mx-auto w-28 h-28 bg-gradient-to-br from-violet-400 via-fuchsia-400 to-pink-400 rounded-full flex items-center justify-center mb-8 shadow-lg relative">
+                    <i id="voice-wave" class="fa-solid fa-waveform-lines text-white text-6xl animate-pulse"></i>
+                </div>
+                <h2 class="text-2xl font-semibold text-zinc-900">Speak naturally...</h2>
+                <p class="text-zinc-500 mt-2">“Find metro to airport”</p>
+            </div>
+            
+            <div class="flex flex-wrap gap-3 justify-center mt-12">
+                <button onclick="voiceCommand('metro')" class="btn-primary px-6 py-3 bg-zinc-100 hover:bg-indigo-100 text-zinc-900 rounded-3xl transition-colors">Find metro to airport</button>
+                <button onclick="voiceCommand('light')" class="btn-primary px-6 py-3 bg-zinc-100 hover:bg-amber-100 text-zinc-900 rounded-3xl transition-colors">Report streetlight issue</button>
+                <button onclick="voiceCommand('hospital')" class="btn-primary px-6 py-3 bg-zinc-100 hover:bg-emerald-100 text-zinc-900 rounded-3xl transition-colors">Nearest hospital</button>
+            </div>
+            
+            <button onclick="closeVoice()" class="mt-12 w-full py-5 text-zinc-400 hover:text-zinc-600 transition-colors font-medium">Cancel</button>
+        </div>
+    </div>
 
-    <!-- Floating Action Button -->
-    <button class="fab" id="fab">
-        <i class="fas fa-plus"></i>
-    </button>
+    <!-- Trip Modal -->
+    <div id="tripModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="bg-white rounded-3xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="p-6 border-b">
+                <h3 class="font-semibold text-xl">Plan Trip</h3>
+            </div>
+            <div class="p-6 space-y-6">
+                <div>
+                    <label class="block text-xs font-medium text-zinc-500 mb-2">DEPARTURE</label>
+                    <input type="text" value="Home • 123 Park Ave" class="w-full bg-zinc-100 rounded-2xl px-5 py-4">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-zinc-500 mb-2">ARRIVAL</label>
+                    <input type="text" value="Office • MG Tower" class="w-full bg-zinc-100 rounded-2xl px-5 py-4">
+                </div>
+                <button onclick="simulateTrip()" class="w-full py-5 bg-indigo-600 text-white rounded-3xl font-medium">Find best routes</button>
+            </div>
+            <div class="p-6 border-t flex gap-3">
+                <button onclick="closeTripModal()" class="flex-1 py-4 border rounded-3xl">Cancel</button>
+                <button onclick="closeTripModal()" class="flex-1 py-4 bg-zinc-900 text-white rounded-3xl">Save</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Enhanced Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('i');
-        
-        // Check for saved theme preference or respect OS preference
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        const currentTheme = localStorage.getItem('theme');
-        
-        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-            document.body.classList.add('dark-theme');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
+        // Tailwind script already included
+
+        let isDark = false;
+
+        function toggleDarkMode() {
+            isDark = !isDark;
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon').classList.replace('fa-moon', 'fa-sun');
+                document.body.style.backgroundColor = '#18181b';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-icon').classList.replace('fa-sun', 'fa-moon');
+                document.body.style.backgroundColor = '';
+            }
+            // Simple refresh of live elements
+            updateLiveData();
+        }
+
+        function updateClock() {
+            const timeEl = document.getElementById('current-time');
+            setInterval(() => {
+                const now = new Date();
+                timeEl.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            }, 1000);
+        }
+
+        function updateLiveData() {
+            // Simulate changing metrics
+            const temp = document.getElementById('temp');
+            const aqi = document.getElementById('aqi');
+            
+            if (Math.random() > 0.7) {
+                temp.textContent = (27 + Math.floor(Math.random() * 4)) + '°';
+            }
+            if (Math.random() > 0.8) {
+                const newAqi = 35 + Math.floor(Math.random() * 20);
+                aqi.textContent = newAqi;
+                document.getElementById('aqi-status').textContent = newAqi < 50 ? 'Good' : 'Moderate';
+            }
+
+            // Update next trip countdown
+            const tripTime = document.getElementById('next-trip-time');
+            let mins = parseInt(tripTime.textContent);
+            if (mins > 1) {
+                tripTime.textContent = mins - 1;
+            }
+        }
+
+        function refreshLiveData() {
+            const map = document.getElementById('live-map');
+            map.style.opacity = 0.6;
+            setTimeout(() => {
+                map.style.opacity = 1;
+                showNotification("Live data refreshed", "success");
+                updateLiveData();
+            }, 420);
+        }
+
+        function actionClick(el) {
+            el.style.transform = "scale(0.92)";
+            setTimeout(() => {
+                el.style.transform = "scale(1)";
+                showNotification("Feature opened in new panel", "info");
+            }, 160);
+        }
+
+        function showNotification(message, type = "info") {
+            const notification = document.createElement("div");
+            notification.className = `fixed bottom-8 right-8 px-6 py-4 rounded-3xl text-white text-sm font-medium shadow-2xl z-50 flex items-center gap-3 animate-slide-up`;
+            
+            const colors = {
+                "info": "bg-indigo-600",
+                "success": "bg-emerald-600",
+                "warning": "bg-amber-600",
+                "error": "bg-red-600"
+            };
+            
+            notification.className += ` ${colors[type] || colors.info}`;
+            notification.innerHTML = `
+                <i class="fa-solid fa-circle-info"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transition = "all 0.4s ease";
+                notification.style.opacity = "0";
+                notification.style.transform = "translateY(30px)";
+                setTimeout(() => notification.remove(), 500);
+            }, 3200);
+        }
+
+        function viewLiveMap() {
+            showNotification("Live 3D city map opened", "info");
         }
         
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            
-            if (document.body.classList.contains('dark-theme')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'light');
-            }
-        });
+        function viewTrip() {
+            showNotification("Trip planner loaded with real-time ETAs", "success");
+        }
+        
+        function viewAlert() {
+            showNotification("Full maintenance schedule loaded", "info");
+        }
+        
+        function joinEvent() {
+            showNotification("You've joined the plantation drive! 🌳", "success");
+        }
+        
+        function showHelp() {
+            showNotification("ORBION Help Centre opened", "info");
+        }
+        
+        function toggleNotifications() {
+            showNotification("3 new city updates available", "info");
+        }
 
-        // Enhanced animations and interactions
-        document.addEventListener('DOMContentLoaded', () => {
-            // Simulate loading progress
-            let progress = 0;
-            const progressBar = document.getElementById('loadingProgress');
-            const loadingInterval = setInterval(() => {
-                progress += Math.random() * 10;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(loadingInterval);
-                    setTimeout(() => {
-                        document.getElementById('loadingOverlay').style.opacity = '0';
-                        setTimeout(() => {
-                            document.getElementById('loadingOverlay').style.display = 'none';
-                        }, 500);
-                    }, 500);
-                }
-                progressBar.style.width = `${progress}%`;
-            }, 200);
+        let voiceOpen = false;
+
+        function openVoiceAssistant() {
+            const overlay = document.getElementById("voiceOverlay");
+            overlay.classList.remove("hidden");
+            overlay.style.opacity = "1";
+            voiceOpen = true;
             
-            // Animate main title underline
-            const mainTitle = document.getElementById('mainTitle');
+            // Simulate listening
             setTimeout(() => {
-                mainTitle.classList.add('animate');
-            }, 500);
-            
-            // Stagger animation for cards
-            const staggerItems = document.querySelectorAll('.stagger-item');
-            staggerItems.forEach((item, index) => {
-                item.style.animationDelay = `${index * 0.1}s`;
-            });
-            
-            // Show emergency alert after 3 seconds
+                if (voiceOpen) showNotification("Listening...", "info");
+            }, 800);
+        }
+        
+        function closeVoice() {
+            const overlay = document.getElementById("voiceOverlay");
+            overlay.style.opacity = "0";
             setTimeout(() => {
-                document.getElementById('emergencyAlert').classList.add('active');
-            }, 3000);
-            
-            // Add scroll effect to header
-            window.addEventListener('scroll', () => {
-                const header = document.querySelector('header');
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
+                overlay.classList.add("hidden");
+                voiceOpen = false;
+            }, 300);
+        }
+        
+        function voiceCommand(cmd) {
+            const messages = {
+                "metro": "Found 3 metro options to airport. Fastest in 41 min.",
+                "light": "Issue reported. Team dispatched. ETA 18 mins.",
+                "hospital": "3 hospitals nearby. Apollo is 7 mins away."
+            };
+            showNotification(messages[cmd] || "Command received", "success");
+            closeVoice();
+        }
+
+        function openTripModal() {
+            document.getElementById("tripModal").classList.remove("hidden");
+        }
+        
+        function closeTripModal() {
+            document.getElementById("tripModal").classList.add("hidden");
+        }
+        
+        function simulateTrip() {
+            closeTripModal();
+            setTimeout(() => {
+                showNotification("Best route: Metro + 8 min walk • 19 min total", "success");
+            }, 600);
+        }
+
+        function selectTransport(n) {
+            document.querySelectorAll('.transport-option').forEach((el, i) => {
+                if (i === n) {
+                    el.classList.add('!border-indigo-300', 'bg-indigo-50');
                 } else {
-                    header.classList.remove('scrolled');
+                    el.classList.remove('!border-indigo-300', 'bg-indigo-50');
                 }
             });
-        });
+        }
 
-        // Advanced Search Panel
-        const searchTrigger = document.getElementById('searchTrigger');
-        const searchPanel = document.getElementById('searchPanel');
-        const searchPanelClose = document.getElementById('searchPanelClose');
-        const searchPanelInput = document.querySelector('.search-panel-input');
+        function showMetricDetail(n) {
+            const labels = ["Traffic flow is excellent", "Transit running on schedule", "Energy usage optimized"];
+            showNotification(labels[n], "info");
+        }
 
-        searchTrigger.addEventListener('click', () => {
-            searchPanel.classList.add('active');
-            searchPanelInput.focus();
-        });
+        function switchTab(tab) {
+            showNotification(`Switched to tab ${tab}`, "info");
+            // Could expand this into full tab system
+        }
 
-        searchPanelClose.addEventListener('click', () => {
-            searchPanel.classList.remove('active');
-        });
+        // Populate services
+        function populateServices() {
+            const services = [
+                {icon: "💧", name: "Water"},
+                {icon: "⚡", name: "Power"},
+                {icon: "🏠", name: "Tax"},
+                {icon: "📱", name: "Mobile"},
+                {icon: "🎓", name: "School"},
+                {icon: "🛵", name: "Vehicle"}
+            ];
+            
+            const container = document.getElementById('services-grid');
+            container.innerHTML = '';
+            
+            services.forEach(s => {
+                const div = document.createElement('div');
+                div.className = `service-tile aspect-square bg-zinc-50 border border-zinc-200 rounded-3xl flex flex-col items-center justify-center gap-2`;
+                div.innerHTML = `
+                    <span class="text-3xl">${s.icon}</span>
+                    <span class="font-medium text-zinc-900">${s.name}</span>
+                `;
+                div.onclick = () => showNotification(`Opened ${s.name} services`, "info");
+                container.appendChild(div);
+            });
+        }
 
-        // Close search panel when clicking outside
-        searchPanel.addEventListener('click', (e) => {
-            if (e.target === searchPanel) {
-                searchPanel.classList.remove('active');
-            }
-        });
+        // Chart instances
+        let trafficChart, energyChart;
+        let currentChartView = 'traffic';
 
-        // Notification Panel
-        const notificationTrigger = document.getElementById('notificationTrigger');
-        const notificationPanel = document.getElementById('notificationPanel');
-        const notificationClose = document.getElementById('notificationClose');
-
-        notificationTrigger.addEventListener('click', () => {
-            notificationPanel.classList.add('active');
-        });
-
-        notificationClose.addEventListener('click', () => {
-            notificationPanel.classList.remove('active');
-        });
-
-        // Close notification panel when clicking outside
-        notificationPanel.addEventListener('click', (e) => {
-            if (e.target === notificationPanel) {
-                notificationPanel.classList.remove('active');
-            }
-        });
-
-        // Emergency Alert Close
-        document.getElementById('alertClose').addEventListener('click', () => {
-            document.getElementById('emergencyAlert').classList.remove('active');
-        });
-
-        // Voice Assistant
-        const voiceAssistant = document.getElementById('voiceAssistant');
-        let isListening = false;
-
-        voiceAssistant.addEventListener('click', () => {
-            if (!isListening) {
-                // Start listening
-                voiceAssistant.classList.add('listening');
-                voiceAssistant.innerHTML = '<i class="fas fa-stop"></i>';
-                isListening = true;
-                
-                // Show assistant panel
-                document.getElementById('assistantPanel').classList.add('active');
-                
-                // Add listening message
-                const messages = document.getElementById('assistantMessages');
-                const message = document.createElement('div');
-                message.className = 'assistant-message';
-                message.textContent = 'Listening...';
-                messages.appendChild(message);
-                messages.scrollTop = messages.scrollHeight;
-                
-                // Simulate voice recognition result after 3 seconds
-                setTimeout(() => {
-                    if (isListening) {
-                        const result = document.createElement('div');
-                        result.className = 'assistant-message user';
-                        result.textContent = 'Show me nearby restaurants';
-                        messages.appendChild(result);
-                        
-                        setTimeout(() => {
-                            const response = document.createElement('div');
-                            response.className = 'assistant-message';
-                            response.textContent = 'I found 15 restaurants within 1 mile. Here are the top 3...';
-                            messages.appendChild(response);
-                            messages.scrollTop = messages.scrollHeight;
-                        }, 1000);
-                        
-                        // Stop listening
-                        voiceAssistant.classList.remove('listening');
-                        voiceAssistant.innerHTML = '<i class="fas fa-microphone"></i>';
-                        isListening = false;
+        // Initialize Charts
+        function initCharts() {
+            // Traffic Chart
+            const trafficCtx = document.getElementById('trafficChart');
+            if (trafficCtx) {
+                trafficChart = new Chart(trafficCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['12 AM', '2 AM', '4 AM', '6 AM', '8 AM', '10 AM', '12 PM', '2 PM', '4 PM', '6 PM', '8 PM', '10 PM'],
+                        datasets: [{
+                            label: 'Traffic Flow (%)',
+                            data: [28, 22, 15, 18, 45, 62, 75, 68, 72, 78, 65, 42],
+                            borderColor: '#6366f1',
+                            backgroundColor: 'rgba(99, 102, 241, 0.08)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#6366f1',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 7,
+                            pointHoverBackgroundColor: '#8b5cf6',
+                            hoverBackgroundColor: 'rgba(99, 102, 241, 0.15)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: '#6366f1',
+                                borderWidth: 1,
+                                padding: 12,
+                                displayColors: false,
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'Flow: ' + context.parsed.y + '%';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    },
+                                    font: {
+                                        size: 11,
+                                        weight: '500'
+                                    },
+                                    color: '#9ca3af'
+                                },
+                                grid: {
+                                    color: 'rgba(0,0,0,0.05)',
+                                    drawBorder: false
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    font: {
+                                        size: 11,
+                                        weight: '500'
+                                    },
+                                    color: '#9ca3af'
+                                },
+                                grid: {
+                                    display: false,
+                                    drawBorder: false
+                                }
+                            }
+                        }
                     }
-                }, 3000);
-            } else {
-                // Stop listening
-                voiceAssistant.classList.remove('listening');
-                voiceAssistant.innerHTML = '<i class="fas fa-microphone"></i>';
-                isListening = false;
+                });
             }
-        });
 
-        // Assistant Panel
-        const assistantClose = document.getElementById('assistantClose');
-        const assistantSend = document.getElementById('assistantSend');
-        const assistantInput = document.getElementById('assistantInput');
-
-        assistantClose.addEventListener('click', () => {
-            document.getElementById('assistantPanel').classList.remove('active');
-        });
-
-        assistantSend.addEventListener('click', sendMessage);
-        assistantInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        function sendMessage() {
-            const message = assistantInput.value.trim();
-            if (message) {
-                const messages = document.getElementById('assistantMessages');
-                
-                // Add user message
-                const userMessage = document.createElement('div');
-                userMessage.className = 'assistant-message user';
-                userMessage.textContent = message;
-                messages.appendChild(userMessage);
-                
-                // Clear input
-                assistantInput.value = '';
-                
-                // Simulate AI response
-                setTimeout(() => {
-                    const aiMessage = document.createElement('div');
-                    aiMessage.className = 'assistant-message';
-                    
-                    // Simple response logic based on keywords
-                    if (message.toLowerCase().includes('weather')) {
-                        aiMessage.textContent = 'The current weather is 72°F and partly cloudy.';
-                    } else if (message.toLowerCase().includes('traffic')) {
-                        aiMessage.textContent = 'Traffic is moderate today. Your usual route has a 5-minute delay.';
-                    } else if (message.toLowerCase().includes('restaurant') || message.toLowerCase().includes('food')) {
-                        aiMessage.textContent = 'I found several highly-rated restaurants nearby. Would you like me to show you the options?';
-                    } else {
-                        aiMessage.textContent = 'I understand you\'re asking about: ' + message + '. How can I assist you with that?';
+            // Energy Chart
+            const energyCtx = document.getElementById('energyChart');
+            if (energyCtx) {
+                energyChart = new Chart(energyCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Solar', 'Wind', 'Hydro', 'Grid', 'Battery'],
+                        datasets: [{
+                            data: [35, 27, 18, 15, 5],
+                            backgroundColor: [
+                                '#fbbf24',
+                                '#60a5fa',
+                                '#34d399',
+                                '#f87171',
+                                '#a78bfa'
+                            ],
+                            borderColor: '#fff',
+                            borderWidth: 3,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        size: 11,
+                                        weight: '500'
+                                    },
+                                    color: '#4b5563',
+                                    padding: 15,
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: '#6366f1',
+                                borderWidth: 1,
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            }
+                        }
                     }
-                    
-                    messages.appendChild(aiMessage);
-                    messages.scrollTop = messages.scrollHeight;
-                }, 1000);
+                });
             }
         }
 
-        // AR Mode
-        document.getElementById('arMode').addEventListener('click', () => {
-            document.getElementById('arView').classList.add('active');
-        });
+        // Switch between chart views
+        function switchChartView(view) {
+            currentChartView = view;
+            
+            const trafficContainer = document.getElementById('trafficChartContainer') || 
+                                     document.querySelector('[id="trafficChart"]')?.closest('.card-hover');
+            const energyContainer = document.getElementById('energyChartContainer');
+            
+            if (view === 'traffic') {
+                if (trafficContainer) trafficContainer.classList.remove('hidden');
+                if (energyContainer) energyContainer.classList.add('hidden');
+                document.querySelectorAll('[onclick*="switchChartView"]').forEach((el, i) => {
+                    if (i === 0) el.classList.add('bg-indigo-100', 'text-indigo-700');
+                    else el.classList.remove('bg-indigo-100', 'text-indigo-700');
+                });
+            } else {
+                if (trafficContainer) trafficContainer.classList.add('hidden');
+                if (energyContainer) energyContainer.classList.remove('hidden');
+                document.querySelectorAll('[onclick*="switchChartView"]').forEach((el, i) => {
+                    if (i === 1) el.classList.add('bg-indigo-100', 'text-indigo-700');
+                    else el.classList.remove('bg-indigo-100', 'text-indigo-700');
+                });
+            }
+            
+            showNotification(`Viewing ${view} analytics`, "info");
+        }
 
-        document.getElementById('arClose').addEventListener('click', () => {
-            document.getElementById('arView').classList.remove('active');
-        });
-
-        // Enhanced Service card interactions
-        const serviceCards = document.querySelectorAll('.service-card');
-        serviceCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                const serviceName = card.querySelector('.service-title').textContent;
-                // In a real app, we would navigate to the service page
-                console.log('Opening service:', serviceName);
-                
-                // Add ripple effect
-                const ripple = document.createElement('span');
-                const rect = card.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size/2;
-                const y = e.clientY - rect.top - size/2;
-                
-                ripple.style.cssText = `
-                    position: absolute;
-                    border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.5);
-                    transform: scale(0);
-                    animation: ripple 0.6s linear;
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${x}px;
-                    top: ${y}px;
-                `;
-                
-                card.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        });
-
-        // Enhanced Quick action buttons
-        const actionButtons = document.querySelectorAll('.action-btn');
-        actionButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const actionName = button.querySelector('span').textContent;
-                // In a real app, we would perform the quick action
-                console.log('Performing action:', actionName);
-                
-                // Add pulse animation
-                button.classList.add('pulse');
-                setTimeout(() => {
-                    button.classList.remove('pulse');
-                }, 600);
-                
-                // Special actions
-                if (actionName === 'AR Mode') {
-                    document.getElementById('arView').classList.add('active');
+        // Floating nav tab switching
+        function switchFloatingTab(tab) {
+            const items = document.querySelectorAll('.floating-nav-item');
+            items.forEach((el, i) => {
+                if (i === tab) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
                 }
             });
+            
+            const labels = ['Home', 'Traffic View', 'Energy Monitor', 'Analytics', 'Settings'];
+            showNotification(labels[tab] + ' selected', "info");
+        }
+
+        // Update charts with live data
+        function updateCharts() {
+            if (trafficChart) {
+                // Simulate real-time traffic updates
+                const newValue = 20 + Math.random() * 60;
+                trafficChart.data.datasets[0].data[trafficChart.data.datasets[0].data.length - 1] = Math.round(newValue);
+                trafficChart.update('none');
+            }
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+                const voice = document.getElementById("voiceOverlay");
+                if (!voice.classList.contains("hidden")) closeVoice();
+                
+                const trip = document.getElementById("tripModal");
+                if (!trip.classList.contains("hidden")) closeTripModal();
+            }
+            
+            if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+                e.preventDefault();
+                document.getElementById("searchInput").focus();
+            }
         });
 
-        // FAB functionality
-        const fab = document.getElementById('fab');
-        fab.addEventListener('click', () => {
-            // In a real app, this would open a modal or quick actions
-            console.log('FAB clicked');
+        // Initialize everything
+        document.addEventListener("DOMContentLoaded", function() {
+            updateClock();
+            populateServices();
+            initCharts();
             
-            // Simple animation
-            fab.style.transform = 'scale(0.9)';
+            // Live updates
+            setInterval(updateLiveData, 8500);
+            setInterval(updateCharts, 3000);
+            
+            // Search focus effect
+            const searchInput = document.getElementById("searchInput");
+            searchInput.addEventListener("focus", function() {
+                this.parentElement.classList.add("shadow-xl");
+            });
+            searchInput.addEventListener("blur", function() {
+                this.parentElement.classList.remove("shadow-xl");
+            });
+            
+            // Service search filter
+            const serviceSearch = document.getElementById("service-search");
+            if (serviceSearch) {
+                serviceSearch.addEventListener("input", function(e) {
+                    const term = e.target.value.toLowerCase();
+                    const tiles = document.querySelectorAll('.service-tile');
+                    tiles.forEach(tile => {
+                        const name = tile.textContent.toLowerCase();
+                        tile.style.display = name.includes(term) ? '' : 'none';
+                    });
+                });
+            }
+            
+            // Floating nav active state
+            switchFloatingTab(0);
+            
+            // Initial notification
             setTimeout(() => {
-                fab.style.transform = '';
-            }, 150);
+                showNotification("Welcome back to ORBION 👋 New analytics dashboard loaded!", "success");
+            }, 1400);
             
-            // Show assistant panel
-            document.getElementById('assistantPanel').classList.add('active');
+            console.log("%c🚀 ORBION Enhanced UI v2.0 Loaded", "color:#6366f1; font-size:15px; font-weight:700; font-family:monospace");
+            console.log("%c✨ Features: Chart.js analytics, Floating glassmorphic nav, Dark mode, Live metrics, Real-time updates", "color:#64748b; font-size:12px");
+            console.log("%c📊 Traffic & Energy monitoring active", "color:#10b981; font-size:12px");
         });
-
-        // Accessibility Features
-        document.getElementById('fontIncrease').addEventListener('click', () => {
-            document.body.style.fontSize = '1.1em';
-        });
-
-        document.getElementById('highContrast').addEventListener('click', () => {
-            document.body.classList.toggle('high-contrast');
-        });
-
-        document.getElementById('screenReader').addEventListener('click', () => {
-            // In a real app, this would toggle screen reader compatibility
-            alert('Screen reader mode activated');
-        });
-
-        // Error State Example
-        document.getElementById('retryButton').addEventListener('click', () => {
-            // Hide error state
-            document.getElementById('errorState').style.display = 'none';
-            
-            // Show loading
-            document.getElementById('loadingOverlay').style.display = 'flex';
-            document.getElementById('loadingOverlay').style.opacity = '1';
-            
-            // Simulate reload
-            setTimeout(() => {
-                document.getElementById('loadingOverlay').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loadingOverlay').style.display = 'none';
-                }, 500);
-            }, 1500);
-        });
-
-        // Simulate an error after 10 seconds (for demo purposes)
-        setTimeout(() => {
-            // Uncomment the line below to see the error state
-            // document.getElementById('errorState').style.display = 'flex';
-        }, 10000);
-
-        // Add CSS for ripple effect
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-            
-            .high-contrast {
-                --text-primary: #000;
-                --text-secondary: #333;
-                --background-color: #fff;
-                --surface-color: #fff;
-                --card-background: #fff;
-                --border-color: #000;
-            }
-            
-            .dark-theme.high-contrast {
-                --text-primary: #fff;
-                --text-secondary: #ccc;
-                --background-color: #000;
-                --surface-color: #000;
-                --card-background: #000;
-                --border-color: #fff;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
-</html> 
+</html>  
